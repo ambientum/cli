@@ -1,11 +1,11 @@
 {
   "name": "@ambientum/cli",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "title": "Ambientum CLI",
   "slug": "ambientum-cli",
   "description": "Ambientum",
   "main": "bin/amb",
-  "repository": "https://github.com/codecasts/ambientum",
+  "repository": "https://github.com/ambientum/cli",
   "author": "Diego Hernandes <iamhernandev@gmail.com>",
   "license": "MIT",
   "private": false,

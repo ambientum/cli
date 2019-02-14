@@ -1,5 +1,7 @@
 # @ambientum/cli
 
+[![npm version](https://badge.fury.io/js/%40ambientum%2Fcli.svg)](https://badge.fury.io/js/%40ambientum%2Fcli)
+
 Command line interface for **[Ambientum](https://github.com/ambientum/ambientum)**.
 
 Ambientum CLI provided the **`amb`** global command, which helps you achieve several goals related to PHP and Node.JS projects:

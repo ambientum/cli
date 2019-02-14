@@ -4,6 +4,7 @@ import { ConsoleApplication } from "lib/support/console/application";
 import { slug, title, version } from "package.json";
 // import console groups.
 import commonGroup from "./common";
+import initGroup from "./init";
 import runnerGroup from "./runner";
 
 // bootstrap function (initialize application instance).
@@ -15,6 +16,8 @@ export const bootstrap = () => {
   app.addCommandGroup(runnerGroup());
   // add common group commands.
   app.addCommandGroup(commonGroup());
+  // add init group commands.
+  app.addCommandGroup(initGroup());
 
   // return app instance.
   return app;
