@@ -1,9 +1,7 @@
 // import Configstore.
 import Configstore from "configstore";
-// lodash helpers.
-import { get } from "lodash";
 // import package.json
-import pkg from "package.json";
+import { slug } from "package.json";
 
 /**
  * Class GlobalConfig.
@@ -15,7 +13,7 @@ export class GlobalConfig {
   // GlobalConfig constructor.
   public constructor(initialValues: object = {}) {
     // start home config instance, passing
-    this.config = new Configstore(get(pkg, "slug", "ambientum-cli"), initialValues);
+    this.config = new Configstore(slug, initialValues);
   }
 
   // return the path for the config file.
