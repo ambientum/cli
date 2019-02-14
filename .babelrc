@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    [ "@babel/plugin-proposal-class-properties" ],
+    [ "@babel/plugin-transform-runtime" ],
+    [ "module-resolver", { "root": [ "./" ], "alias": { "lib": "./lib" } } ]
+  ],
+  "presets": [
+    [ "@babel/preset-typescript" ],
+    [ "@babel/preset-env", { "targets": { "node": "8" } } ]
+  ]
+}
