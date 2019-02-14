@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+// import console bootstrap function.
+"use strict";
+
+var _console = require("../dist/console");
+
+// bootstrap console application.
+const app = (0, _console.bootstrap)(); // start application.
+
+app.start();
