@@ -1,0 +1,54 @@
+{
+  "name": "@ambientum/cli",
+  "version": "0.0.1",
+  "title": "Ambientum CLI",
+  "slug": "ambientum-cli",
+  "description": "Ambientum",
+  "main": "bin/amb",
+  "repository": "https://github.com/codecasts/ambientum",
+  "author": "Diego Hernandes <iamhernandev@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "clear": "rimraf ./dist && rimraf out/amb-*",
+    "babel": "npm run clear && babel lib --out-dir dist --extensions .ts,.tsx,.js",
+    "start": "nodemon",
+    "generate": "npm run babel && pkg -t node10-macos,node10-linux,node10-win bin/amb --out-path out"
+  },
+  "pkg": {
+    "scripts": [
+      "dist/**/*.js",
+      "bin/amb"
+    ]
+  },
+  "bin": {
+    "amb": "bin/amb"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.3.1",
+    "chalk": "^2.4.2",
+    "configstore": "^4.0.0",
+    "dockerode": "^2.5.8",
+    "enquirer": "^2.3.0",
+    "lodash": "^4.17.11",
+    "meow": "^5.0.0",
+    "yaml": "^1.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/dockerode": "^2.5.12",
+    "@types/lodash": "^4.14.120",
+    "@types/meow": "^5.0.0",
+    "@types/node": "^11.9.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "nodemon": "^1.18.10",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  }
+}
