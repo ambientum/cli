@@ -1,0 +1,6 @@
+{
+  "watch": ["lib"],
+  "ext": "ts",
+  "ignore": ["lib/**/*.spec.ts"],
+  "exec": "npm run clear && npm run babel"
+}
