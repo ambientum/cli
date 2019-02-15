@@ -1,8 +1,11 @@
+// import lodash helpers.
+import { set, map, get } from "lodash";
+// import interfaces from module.
+import { IComposeLink, IComposeMount, IComposePort, IComposeVariable, IComposeVolume } from "./index";
+
 /**
  * Class ComposeService.
  */
-import { IComposeLink, IComposeMount, IComposePort, IComposeVariable, IComposeVolume } from "./index";
-
 export class ComposeService {
   // service name.
   protected name: string;
@@ -26,6 +29,9 @@ export class ComposeService {
 
   // list of volumes.
   protected volumes: IComposeVolume[] = [];
+
+  // linkable or not.
+  protected linkable: boolean = false;
 
   // set service name.
   public setName(name: string): ComposeService {
@@ -129,5 +135,62 @@ export class ComposeService {
   // get service volumes.
   public getVolumes(): IComposeVolume[] {
     return this.volumes;
+  }
+
+  // set as linkable or not.
+  public setLinkable(linkable: boolean): ComposeService {
+    // assign linkable status.
+    this.linkable = linkable;
+    // fluent return.
+    return this;
+  }
+
+  // get linkable status.
+  public isLinkable(): boolean {
+    return this.linkable;
+  }
+
+  // return the service compose object.
+  public toComposeObject(linkableServices: ComposeService[]): object {
+    // start service config.
+    const service = {
+      image: this.getImage(), // service image.
+    };
+
+    // when there are mount points.
+    if (this.getMountPoints().length > 0) {
+      set(service, "volumes", map(this.getMountPoints(), (m: IComposeMount) => {
+        return `${m.source}:${m.target}`;
+      }));
+    }
+
+    // when service command is not null (not default command).
+    if (this.getCommand() !== null) {
+      // set command key with array consisting of split by space values of command string.
+      set(service, "command", this.getCommand().split(" "));
+    }
+
+    // when there are variables to be set.
+    if (this.getVariables().length > 0) {
+      set(service, "environment", map(this.getVariables(), (v: IComposeVariable) => {
+        return `${v.name}=${v.value}`;
+      }));
+    }
+    // when there are port mappings to be set.
+    if (this.getPortMappings().length > 0) {
+      set(service, "ports", map(this.getPortMappings(), (p: IComposePort) => {
+        return `${p.hostPort}:${p.containerPort}`;
+      }));
+    }
+
+    // non linkable services should link to all linkable ones.
+    if ((this.isLinkable() === false) && linkableServices.length > 0) {
+      set(service, "links", map(linkableServices, (s: ComposeService) => {
+        return s.getName();
+      }));
+    }
+
+    // return docker-compose service object.
+    return service;
   }
 }

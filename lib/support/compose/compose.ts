@@ -1,5 +1,6 @@
 // import lodash helpers.
-import { find } from "lodash";
+import { find, keyBy, map, filter, mapValues } from "lodash";
+import YAML from "yaml";
 import { IComposeVolume } from "./index";
 // import child classes.
 import { ComposeService } from "./service";
@@ -85,5 +86,25 @@ export class DockerCompose {
     service.getVolumes().forEach((v) => this.addVolume(v));
     // fluent return.
     return this;
+  }
+
+  // get a list of services that are linkable.
+  public getLinkableService(): ComposeService[] {
+    return filter(this.services, (s: ComposeService) => s.isLinkable());
+  }
+
+  public toComposeObject() {
+    const version = this.version;
+    const volumes = mapValues(keyBy(this.volumes, "name"), (v: IComposeVolume) => {
+      return { driver: v.driver || "local" };
+    });
+    const services = mapValues(keyBy(this.services, "name"), (s: ComposeService) => {
+      return s.toComposeObject(this.getLinkableService());
+    });
+    console.log(YAML.stringify({
+      version,
+      volumes,
+      services,
+    }));
   }
 }
