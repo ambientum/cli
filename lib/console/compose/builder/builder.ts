@@ -4,6 +4,8 @@ import { ProjectNamePrompt } from "./prompts/common/project-name";
 import { MySQLPrompt } from "./prompts/services/mysql";
 import { PostgresPrompt } from "./prompts/services/postgres";
 import { RedisPrompt } from "./prompts/services/redis";
+import { MongoPrompt } from "./prompts/services/mongo";
+import { LaravelAppPrompt } from "./prompts/services/laravel-app";
 
 /**
  * Class ComposeBuilder.
@@ -30,8 +32,12 @@ export class ComposeBuilder {
     this.compose.addService(await new PostgresPrompt(this).ask());
     // build and add redis.
     this.compose.addService(await new RedisPrompt(this).ask());
+    // build and add mongo.
+    this.compose.addService(await new MongoPrompt(this).ask());
+    // build laravel app service.
+    this.compose.addService(await new LaravelAppPrompt(this).ask());
 
     // compose.
-    console.log(this.compose);
+    console.log(this.compose.toComposeObject());
   }
 }

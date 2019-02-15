@@ -2,8 +2,6 @@
 import { Input, Select } from "enquirer/lib/prompts";
 import { Command } from "lib/support/console";
 import { CommandHelp } from "lib/support/console/helpers/command-help";
-import { ComposeService, ComposeVolume, DockerCompose } from "lib/support/compose";
-import { basename } from "path";
 import { ComposeBuilder } from "../builder/builder";
 
 /**
