@@ -18,7 +18,7 @@ export interface IPromptPort {
 export interface IPromptVariable {
   name: string;
   description: string;
-  initial: string;
+  initial: string|boolean;
 }
 
 /**
@@ -54,6 +54,8 @@ export abstract class ServicePrompt {
   // enabled by default status.
   public abstract enabledByDefault: boolean;
 
+  // set as linkable (child service) or not.
+  public abstract linkable: boolean;
 
   // port mappings.
   public abstract ports: IPromptPort[];
@@ -80,7 +82,10 @@ export abstract class ServicePrompt {
 
 
   // ask input question.
-  public async ask() {
+  public async ask(): Promise<ComposeService> {
+    // log an empty line to separate question prompts.
+    console.log();
+
     // ask user if current service should be enabled or not.
     const enabled = await this.askEnabledQuestion();
 
@@ -91,6 +96,8 @@ export abstract class ServicePrompt {
 
     // set service name as prompt slug (safe string for compose service name).
     this.service.setName(this.slug);
+    // set service as linkable or not (linkable => child services | not linkable => app services).
+    this.service.setLinkable(this.linkable);
 
     // ask tag selection question.
     const tag = await this.askTagQuestion();
@@ -104,13 +111,15 @@ export abstract class ServicePrompt {
 
     // ask user to edit port mappings.
     const ports = await this.askPortMappingsQuestion();
+
     // loop through mappings, adding on service.
     each(ports, (hostPortString, containerPortString) => {
       // make host and container port numbers.
       const hostPort = toNumber(hostPortString);
       const containerPort = toNumber(containerPortString);
+
       // only add if host port is bigger than 1.
-      if (toNumber(hostPort) > 1) {
+      if (hostPort > 1) {
         this.service.addPortMapping({ hostPort, containerPort });
       }
     });
@@ -121,10 +130,8 @@ export abstract class ServicePrompt {
     // loop through volumes, adding on service.
     each(this.volumes, (v: IPromptVolume) => this.service.addVolume(v));
 
-    console.log(this.service);
-
+    // return build service.
     return this.service;
-    // return { slug: this.slug, name: this.name, enabled, image: this.image, tag, variables, ports };
   }
 
   // ask enabled / disabled question.
@@ -140,7 +147,7 @@ export abstract class ServicePrompt {
   protected askTagQuestion() {
     return (new Select({
       name: `${this.slug}.tag`,
-      message: "Select a version:",
+      message: "➜ Select a version:",
       choices: this.tags,
     })).run();
   }
@@ -155,7 +162,7 @@ export abstract class ServicePrompt {
     // when there are env vars to be parsed...
     return (new Form({
       name: `${this.slug}.variables`,
-      message: `Configure ${this.name} variables`,
+      message: `➜ Configure ${this.name} variables:`,
       choices: map(this.variables, (v: IPromptVariable) => {
         return {
           name: v.name,
@@ -168,13 +175,19 @@ export abstract class ServicePrompt {
 
   // ask form to allow edit on port mappings.
   protected askPortMappingsQuestion() {
+    // avoid if no ports need to be set.
+    if (this.ports.length === 0) {
+      return null;
+    }
+
+    // ask ports form.
     return (new Form({
       name: `${this.slug}.ports`,
-      message: `Map ${this.name} ports on Host`,
+      message: `➜ Map ${this.name} ports on Host:`,
       choices: map(this.ports, (v: IPromptPort) => {
         return {
           name: v.port,
-          message: `${v.name}`,
+          message: `${v.name} (${v.port})`,
           initial: v.port,
         };
       }),

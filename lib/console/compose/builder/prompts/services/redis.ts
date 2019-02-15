@@ -16,6 +16,9 @@ export class RedisPrompt extends ServicePrompt {
   // enabled by default status.
   public enabledByDefault: boolean = true;
 
+  // make linkable.
+  public linkable: boolean = true;
+
   // tags.
   public tags: string[] = ["5-alpine", "4-alpine"];
 

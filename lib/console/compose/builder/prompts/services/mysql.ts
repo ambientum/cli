@@ -16,6 +16,9 @@ export class MySQLPrompt extends ServicePrompt {
   // enabled by default status.
   public enabledByDefault: boolean = true;
 
+  // make linkable.
+  public linkable: boolean = true;
+
   // tags.
   public tags: string[] = ["5.7", "8.0"];
 

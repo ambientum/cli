@@ -16,6 +16,9 @@ export class PostgresPrompt extends ServicePrompt {
   // enabled by default status.
   public enabledByDefault: boolean = false;
 
+  // make linkable.
+  public linkable: boolean = true;
+
   // tags.
   public tags: string[] = ["11.2", "10.7", "9.6", "9.5"];
 
