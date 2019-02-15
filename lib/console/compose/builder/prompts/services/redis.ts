@@ -6,38 +6,34 @@ import {
   ServicePrompt,
 } from "../service";
 
-export class PostgresPrompt extends ServicePrompt {
+export class RedisPrompt extends ServicePrompt {
   // service / question name.
-  public name: string = "PostgreSQL";
+  public name: string = "Redis";
   // service slug (lowercase, normalized name).
-  public slug: string = "postgres";
+  public slug: string = "redis";
   // docker image name.
-  public image: string = "postgres";
+  public image: string = "redis";
   // enabled by default status.
-  public enabledByDefault: boolean = false;
+  public enabledByDefault: boolean = true;
 
   // tags.
-  public tags: string[] = ["11.2", "10.7", "9.6", "9.5"];
+  public tags: string[] = ["5-alpine", "4-alpine"];
 
   // port mappings.
   public ports: IPromptPort[] = [
-    { name: "default", port: "5432" },
+    { name: "default", port: "6379" },
   ];
 
   // variables.
-  public variables: IPromptVariable[] = [
-    { name: "POSTGRES_USER", description: "PostgreSQL Username", initial: "project" },
-    { name: "POSTGRES_PASSWORD", description: "PostgreSQL Password", initial: "project" },
-    { name: "POSTGRES_DB", description: "PostgreSQL Database", initial: "project" },
-  ];
+  public variables: IPromptVariable[] = [];
 
   // list of mount points.
   public mountPoints: IPromptMount[] = [
-    { source: "postgres-data", target: "/var/lib/postgresql/data" },
+    { source: "redis-data", target: "/data" },
   ];
 
   // list of mount points.
   public volumes: IPromptVolume[] = [
-    { name: "postgres-data", driver: "local" },
+    { name: "redis-data", driver: "local" },
   ];
 }
