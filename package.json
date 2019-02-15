@@ -11,7 +11,8 @@
   "private": false,
   "scripts": {
     "clear": "rimraf ./dist && rimraf out/amb-*",
-    "babel": "npm run clear && babel lib --out-dir dist --extensions .ts,.tsx,.js",
+    "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
+    "build": "npm run clear && npm run babel",
     "start": "nodemon",
     "generate": "npm run babel && pkg -t node10-macos,node10-linux,node10-win bin/amb --out-path out"
   },
