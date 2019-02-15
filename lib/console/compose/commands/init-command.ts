@@ -1,7 +1,8 @@
 // import base command.
-import { Select } from "enquirer/lib/prompts";
-import { Command } from "../../../support/console";
-import { CommandHelp } from "../../../support/console/helpers/command-help";
+import { Input, Select } from "enquirer/lib/prompts";
+import { Command } from "lib/support/console";
+import { CommandHelp } from "lib/support/console/helpers/command-help";
+import { ComposeBuilder } from "../builder/builder";
 
 /**
  * Class InitCommand.
@@ -16,7 +17,10 @@ export class InitCommand extends Command {
   public description: string = "Initialize docker-compose.yml configuration for a project.";
 
   // command triggers.
-  public triggers: string[] = [ "init", "-i" ];
+  public triggers: string[] = ["init", "-i"];
+
+  // compose builder.
+  protected builder: ComposeBuilder;
 
   // return help for the current command.
   public getCommandHelp(): CommandHelp {
@@ -29,8 +33,13 @@ export class InitCommand extends Command {
     });
   }
 
-  public run() {
-    console.log("init");
-  }
+  public async run() {
+    // create compose builder instance.
+    this.builder = new ComposeBuilder();
 
+    // start builder.
+    console.log(await this.builder.start());
+  }
 }
+
+
