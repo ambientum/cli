@@ -1,5 +1,6 @@
 // import ConsoleApplication class.
 import { ConsoleApplication } from "./application";
+// import Command class.
 import { Command } from "./command";
 
 /**

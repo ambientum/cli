@@ -1,22 +1,26 @@
 // import chalk for colorful output.
 import chalk from "chalk";
 // import lodash helpers.
-import { reduce } from "lodash";
+import { map, max } from "lodash";
 
 // interface for usage lines.
-export interface IUsageLine {
+export interface UsageLine {
+  // usage example.
   command: string;
+  // usage description.
   description: string;
 }
 
 // interface for command help options.
-interface ICommandHelpOptions {
+interface CommandHelpOptions {
   // command name.
   name: string;
   // command description.
   description: string;
+  // list of triggers / aliases.
+  triggers: string[];
   // command usage examples.
-  usage: IUsageLine[];
+  usage: UsageLine[];
 }
 
 /**
@@ -24,18 +28,27 @@ interface ICommandHelpOptions {
  */
 export class CommandHelp {
   // help options.
-  protected options: ICommandHelpOptions;
+  protected options: CommandHelpOptions;
 
   // constructor
-  public constructor(options: ICommandHelpOptions) {
+  public constructor(options: CommandHelpOptions) {
     // assign command options.
     this.options = options;
   }
 
   // render help text for the given command.
   public render() {
-    // display basic info.
-    console.log(chalk.yellow(this.options.name), chalk.grey(this.options.description), "\n");
+    console.group(chalk.yellow(this.options.name));
+    console.log(chalk.grey(this.options.description));
+    console.log();
+    console.groupEnd();
+    console.group("Aliases:");
+    map(this.options.triggers, (trigger: string) => {
+      console.log(chalk.yellow(`amb ${trigger}`));
+    });
+    console.log();
+    console.groupEnd();
+
     // display usage group.
     console.group("Usage Examples");
     // get pad size cor command on usage line.
@@ -52,10 +65,7 @@ export class CommandHelp {
   // calculate the length to pad each command name (display as virtual table.)
   protected usageLinePadSize() {
     // get the max length for the commands on usage lines.
-    const maxCommandLength = reduce(this.options.usage, (current: number, line: IUsageLine) => {
-      // return the length if the biggest so far, or the current max value.
-      return (line.command.length >= current) ? line.command.length : current;
-    }, 1); // start with one.
+    const maxCommandLength = max(map(this.options.usage, (line: IUsageLine) => (line.command).length));
 
     // make sure there are 3 chars spacing, then get into a number that is multiple of 5.
     return (Math.ceil((maxCommandLength + 3) / 5)) * 5;
