@@ -16,6 +16,13 @@ export class ComposeMount implements IComposeMount {
   public source: string;
   // path on container to mount.
   public target: string;
+
+  // constructor.
+  public constructor(options: IComposeMount) {
+    // assign values.
+    this.source = options.source;
+    this.target = options.target;
+  }
 }
 
 // default export.

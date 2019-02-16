@@ -1,7 +1,7 @@
 // import lodash helpers.
-import { find, keyBy, map, filter, mapValues } from "lodash";
+import { find, keyBy, filter, mapValues } from "lodash";
 import YAML from "yaml";
-import { IComposeVolume } from "./index";
+import { ComposeVolume } from "./resources";
 // import child classes.
 import { ComposeService } from "./service";
 
@@ -18,7 +18,7 @@ export class DockerCompose {
   protected version: string;
 
   // list of compose project volumes.
-  protected volumes: IComposeVolume[] = [];
+  protected volumes: ComposeVolume[] = [];
 
   // list of compose project services.
   protected services: ComposeService[] = [];
@@ -54,7 +54,7 @@ export class DockerCompose {
   // check if a given volume name already exists.
   public hasVolume(name: string): boolean {
     // find the first volume matching a given name.
-    const findResult = find(this.volumes, (v: IComposeVolume) => {
+    const findResult = find(this.volumes, (v: ComposeVolume) => {
       return v.name === name;
     });
 
@@ -63,7 +63,7 @@ export class DockerCompose {
   }
 
   // add a volume into current compose project.
-  public addVolume(volume: IComposeVolume) {
+  public addVolume(volume: ComposeVolume) {
     // add volume, if no other with the same name exists.
     if (!this.hasVolume(volume.name)) {
       // push volume into volumes array.
@@ -94,13 +94,15 @@ export class DockerCompose {
   }
 
   public toComposeObject() {
+    // compose version.
     const version = this.version;
-    const volumes = mapValues(keyBy(this.volumes, "name"), (v: IComposeVolume) => {
-      return { driver: v.driver || "local" };
-    });
+    // compose volumes.
+    const volumes = mapValues(keyBy(this.volumes, "name"), (v: ComposeVolume) => v.serialize());
     const services = mapValues(keyBy(this.services, "name"), (s: ComposeService) => {
       return s.toComposeObject(this.getLinkableService());
     });
+
+    // console.log yaml transform.
     console.log(YAML.stringify({
       version,
       volumes,

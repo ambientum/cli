@@ -16,6 +16,18 @@ export class ComposeVolume implements IComposeVolume {
   public name: string;
   // volume driver.
   public driver: string;
+
+  // constructor.
+  public constructor(options: IComposeVolume) {
+    // assign values.
+    this.name = options.name;
+    this.driver = options.driver;
+  }
+
+  // serialize to compose-specific.
+  public serialize() {
+    return { driver: this.driver || "local" };
+  }
 }
 
 // default export.

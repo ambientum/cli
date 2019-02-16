@@ -1,7 +1,8 @@
 // import lodash helpers.
 import { set, map, get } from "lodash";
-// import interfaces from module.
-import { IComposeLink, IComposeMount, IComposePort, IComposeVariable, IComposeVolume } from "./index";
+// import service resource classes.
+import { ComposeLink, ComposeMount, ComposePort, ComposeVariable, ComposeVolume } from "./resources";
+
 
 /**
  * Class ComposeService.
@@ -16,19 +17,19 @@ export class ComposeService {
   protected command: string = null;
 
   // list of mount points.
-  protected mountPoints: IComposeMount[] = [];
+  protected mountPoints: ComposeMount[] = [];
 
   // list of port mappings.
-  protected portMappings: IComposePort[] = [];
+  protected portMappings: ComposePort[] = [];
 
   // list of links to another services.
-  protected links: IComposeLink[] = [];
+  protected links: ComposeLink[] = [];
 
   // list of variables.
-  protected variables: IComposeVariable[] = [];
+  protected variables: ComposeVariable[] = [];
 
   // list of volumes.
-  protected volumes: IComposeVolume[] = [];
+  protected volumes: ComposeVolume[] = [];
 
   // linkable or not.
   protected linkable: boolean = false;
@@ -73,67 +74,67 @@ export class ComposeService {
   }
 
   // add mount point.
-  public addMountPoint(mountPoint: IComposeMount): ComposeService {
+  public addMountPoint(mountPoint: ComposeMount): ComposeService {
     // push into mounts array.
-    this.mountPoints.push(mountPoint);
+    this.mountPoints.push(new ComposeMount(mountPoint));
     // fluent return.
     return this;
   }
 
   // get service mount points.
-  public getMountPoints(): IComposeMount[] {
+  public getMountPoints(): ComposeMount[] {
     return this.mountPoints;
   }
 
   // add port mapping.
-  public addPortMapping(portMapping: IComposePort): ComposeService {
+  public addPortMapping(portMapping: ComposePort): ComposeService {
     // push into mappings array.
-    this.portMappings.push(portMapping);
+    this.portMappings.push(new ComposePort(portMapping));
     // fluent return.
     return this;
   }
 
   // get service port mappings.
-  public getPortMappings(): IComposePort[] {
+  public getPortMappings(): ComposePort[] {
     return this.portMappings;
   }
 
   // add service link.
-  public addLink(link: IComposeLink): ComposeService {
+  public addLink(link: ComposeLink): ComposeService {
     // push into links array.
-    this.links.push(link);
+    this.links.push(new ComposeLink(link));
     // fluent return.
     return this;
   }
 
   // get service links.
-  public getLinks(): IComposeLink[] {
+  public getLinks(): ComposeLink[] {
     return this.links;
   }
 
   // add service variable.
-  public addVariable(variable: IComposeVariable): ComposeService {
+  public addVariable(variable: ComposeVariable): ComposeService {
     // push into variables array.
-    this.variables.push(variable);
+    this.variables.push(new ComposeVariable(variable));
     // fluent return.
     return this;
   }
 
   // get service variables.
-  public getVariables(): IComposeVariable[] {
+  public getVariables(): ComposeVariable[] {
     return this.variables;
   }
 
   // add service volume.
-  public addVolume(volume: IComposeVolume): ComposeService {
+  public addVolume(volume: ComposeVolume): ComposeService {
     // push into volumes array.
-    this.volumes.push(volume);
+    this.volumes.push(new ComposeVolume(volume));
     // fluent return.
     return this;
   }
 
   // get service volumes.
-  public getVolumes(): IComposeVolume[] {
+  public getVolumes(): ComposeVolume[] {
     return this.volumes;
   }
 
@@ -159,7 +160,7 @@ export class ComposeService {
 
     // when there are mount points.
     if (this.getMountPoints().length > 0) {
-      set(service, "volumes", map(this.getMountPoints(), (m: IComposeMount) => {
+      set(service, "volumes", map(this.getMountPoints(), (m: ComposeMount) => {
         return `${m.source}:${m.target}`;
       }));
     }
@@ -172,15 +173,11 @@ export class ComposeService {
 
     // when there are variables to be set.
     if (this.getVariables().length > 0) {
-      set(service, "environment", map(this.getVariables(), (v: IComposeVariable) => {
-        return `${v.name}=${v.value}`;
-      }));
+      set(service, "environment", map(this.getVariables(), (v) => v.serialize()));
     }
     // when there are port mappings to be set.
     if (this.getPortMappings().length > 0) {
-      set(service, "ports", map(this.getPortMappings(), (p: IComposePort) => {
-        return `${p.hostPort}:${p.containerPort}`;
-      }));
+      set(service, "ports", map(this.getPortMappings(), (p) => p.serialize()));
     }
 
     // non linkable services should link to all linkable ones.
@@ -189,7 +186,7 @@ export class ComposeService {
         return s.getName();
       }));
     }
-
+    console.log(this);
     // return docker-compose service object.
     return service;
   }
