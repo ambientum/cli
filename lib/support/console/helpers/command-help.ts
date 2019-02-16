@@ -54,7 +54,7 @@ export class CommandHelp {
     // get pad size cor command on usage line.
     const padSize = this.usageLinePadSize();
     // loop thorough usage lines...
-    this.options.usage.forEach((line: IUsageLine) => {
+    this.options.usage.forEach((line: UsageLine) => {
       // print each example usage.
       console.log(chalk.green(line.command.padEnd(padSize)), chalk.grey(line.description));
     });
@@ -65,7 +65,7 @@ export class CommandHelp {
   // calculate the length to pad each command name (display as virtual table.)
   protected usageLinePadSize() {
     // get the max length for the commands on usage lines.
-    const maxCommandLength = max(map(this.options.usage, (line: IUsageLine) => (line.command).length));
+    const maxCommandLength = max(map(this.options.usage, (line: UsageLine) => (line.command).length));
 
     // make sure there are 3 chars spacing, then get into a number that is multiple of 5.
     return (Math.ceil((maxCommandLength + 3) / 5)) * 5;
