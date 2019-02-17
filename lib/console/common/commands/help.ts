@@ -2,9 +2,8 @@
 import chalk from 'chalk';
 // import lodash helpers.
 import { each, reduce, map, max } from 'lodash';
-// import base command class.
-import { Command, UsageExample } from 'lib/support/console/command';
-import { CommandHelp } from 'lib/support/console/helpers/command-help';
+// import command classes
+import { Command, CommandHelp, UsageExample } from 'lib/support/console';
 
 /**
  * Class HelpCommand.

@@ -1,9 +1,9 @@
 // import base command.
 import { Input, Select } from 'enquirer/lib/prompts';
+// import command classes
 import { Command, UsageExample } from 'lib/support/console';
-import { ComposeBuilder } from '../builder/builder';
-import { readFileSync } from 'fs';
-import YAML from 'yaml';
+// import compose builder.
+import { ComposeBuilder } from '../builder/ComposeBuilder';
 
 /**
  * Class InitCommand.

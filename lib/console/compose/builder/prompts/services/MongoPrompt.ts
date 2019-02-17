@@ -1,5 +1,5 @@
 // import classes and base prompt.
-import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from '../service';
+import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from '../ServicePrompt';
 
 /**
  * Class MongoPrompt.

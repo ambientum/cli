@@ -32,7 +32,7 @@ export class ComposeBuilder {
     this.compose.addService(await new prompts.WebAppPrompt(this).ask());
 
     // compose.
-    const composeFileObject = this.compose.toComposeObject();
+    const composeFileObject = this.compose.serialize();
 
     // log file on terminal.
     console.log(composeFileObject.toString());

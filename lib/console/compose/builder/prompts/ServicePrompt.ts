@@ -55,8 +55,7 @@ export abstract class ServicePrompt {
   public abstract slug: string;
   // docker image name.
   public abstract image: string;
-  // custom command.
-  public abstract command: string;
+
   // available tags (versions).
   public abstract tags: string[];
 

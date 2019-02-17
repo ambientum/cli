@@ -1,12 +1,12 @@
 // import base command.
 import { Select } from 'enquirer/lib/prompts';
 import { UsageExample } from 'lib/support/console';
-import { RunnerCommand } from './runner';
+import { RunnerCommand } from 'lib/console/runner/commands/RunnerCommand';
 
 /**
- * Class PhpRunnerCommand.
+ * Class PHPRunnerCommand.
  */
-export class PhpRunnerCommand extends RunnerCommand {
+export class PHPRunnerCommand extends RunnerCommand {
   // command name.
   public name: string = 'php';
   // command description.

@@ -4,7 +4,7 @@ import { Input } from 'enquirer/lib/prompts';
 /**
  * Class BuilderInputPrompt.
  */
-export abstract class BuilderInputPrompt {
+export abstract class InputPrompt {
   // question name (key).
   protected abstract name: string;
   // question text.

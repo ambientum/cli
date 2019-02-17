@@ -4,7 +4,7 @@ import {
   IPromptVariable,
   IPromptVolume,
   ServicePrompt,
-} from '../service';
+} from '../ServicePrompt';
 
 export class MySQLPrompt extends ServicePrompt {
   // service / question name.
