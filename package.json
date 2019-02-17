@@ -45,6 +45,7 @@
     "@types/lodash": "^4.14.120",
     "@types/meow": "^5.0.0",
     "@types/node": "^11.9.0",
+    "@types/yaml": "^1.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
     "nodemon": "^1.18.10",
     "pkg": "^4.3.7",
