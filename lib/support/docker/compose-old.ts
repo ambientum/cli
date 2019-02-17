@@ -1,4 +1,4 @@
-import YAML from "yaml";
+import YAML from 'yaml';
 
 /**
  * Dump a Docker-compose config object into a YAML string.

@@ -1,5 +1,5 @@
 // import base enquirer prompt.
-import { Input } from "enquirer/lib/prompts";
+import { Input } from 'enquirer/lib/prompts';
 
 /**
  * Class BuilderInputPrompt.

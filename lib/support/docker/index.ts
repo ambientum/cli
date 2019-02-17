@@ -1,6 +1,6 @@
 // import docker client instance.
-import docker from "./docker";
+import docker from './docker';
 
-export { run } from "./run";
+export { run } from './run';
 
 export default docker;

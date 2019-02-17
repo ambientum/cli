@@ -1,6 +1,6 @@
 // import ConsoleApplication class.
-import { GlobalConfig } from "../config";
-import { ConsoleApplication } from "./application";
+import { GlobalConfig } from '../config';
+import { ConsoleApplication } from './application';
 
 // interface for usage lines.
 export interface UsageExample {
@@ -38,8 +38,8 @@ export abstract class Command {
     this.app = ConsoleApplication.getInstance();
     // assign a config object for global config access inside commands.
     this.config = new GlobalConfig({
-      node: { image: "ambientum/node", tag: "10" },
-      php: { image: "ambientum/php", tag: "7.3" },
+      node: { image: 'ambientum/node', tag: '10' },
+      php: { image: 'ambientum/php', tag: '7.3' },
     });
   }
 

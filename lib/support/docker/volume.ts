@@ -1,6 +1,6 @@
 // import docker client.
-import Dockerode from "dockerode";
-import docker from "./docker";
+import Dockerode from 'dockerode';
+import docker from './docker';
 
 // interface for DockerVolume constructor.
 interface IDockerVolumeOptions {
@@ -46,7 +46,7 @@ export class DockerVolume {
   // generate mount point.
   public mountPoint() {
     return {
-      Type: "volume",            // mount as volume.
+      Type: 'volume',            // mount as volume.
       Source: this.options.name,         // use volume name as source.
       Target: this.options.mountPath,    // use provided path as target.
       ReadyOnly: this.isReadyOnly(),  // set write permission.

@@ -1,10 +1,10 @@
 // import chalk for output colors.
-import chalk from "chalk";
+import chalk from 'chalk';
 // import lodash helpers.
-import { each, reduce, map, max } from "lodash";
+import { each, reduce, map, max } from 'lodash';
 // import base command class.
-import { Command, UsageExample } from "lib/support/console/command";
-import { CommandHelp } from "lib/support/console/helpers/command-help";
+import { Command, UsageExample } from 'lib/support/console/command';
+import { CommandHelp } from 'lib/support/console/helpers/command-help';
 
 /**
  * Class HelpCommand.
@@ -13,11 +13,11 @@ import { CommandHelp } from "lib/support/console/helpers/command-help";
  */
 export class HelpCommand extends Command {
   // command name.
-  public name: string = "help";
+  public name: string = 'help';
   // command description.
-  public description: string = "Display help info for a command.";
+  public description: string = 'Display help info for a command.';
   // command triggers.
-  public triggers: string[] = [ "help", "-h" ];
+  public triggers: string[] = [ 'help', '-h' ];
 
   // command usage examples.
   public usage: UsageExample[] = [];
@@ -44,7 +44,7 @@ export class HelpCommand extends Command {
     // determine command name pad length, to make it into a nice :) table.
     const padLength = this.commandNamePadLength(commands);
     // start group to pad contents.
-    console.group("Available commands:");
+    console.group('Available commands:');
     // loop through commands...
     each(commands, (c: Command) => {
       // ...displaying signature and description.
@@ -76,7 +76,7 @@ export class HelpCommand extends Command {
 
   // display app banner.
   protected displayBanner() {
-    console.log(`${chalk.green("Ambientum CLI")} ${chalk.grey("- v" + this.app.version())}\n`);
+    console.log(`${chalk.green('Ambientum CLI')} ${chalk.grey('- v' + this.app.version())}\n`);
   }
 
   // calculate the length to pad each command name (display as virtual table.)

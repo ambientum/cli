@@ -1,9 +1,9 @@
 // import lodash helpers.
-import { set, map } from "lodash";
+import { set, map } from 'lodash';
 // import service resource classes.
-import * as res from "./resources";
+import * as res from './resources';
 // import volume classes.
-import { ComposeVolume, IComposeVolume } from "./volume";
+import { ComposeVolume, IComposeVolume } from './volume';
 
 /**
  * Class ComposeService.
@@ -115,32 +115,32 @@ export class ComposeService {
 
     // when there are mount points.
     if (this.mountPoints.length > 0) {
-      set(service, "volumes", map(this.mountPoints, (m: res.ComposeMount) => m.serialize()));
+      set(service, 'volumes', map(this.mountPoints, (m: res.ComposeMount) => m.serialize()));
     }
 
     // when service command is not null (not default command).
     if (this.command !== null) {
       // set command key with array consisting of split by space values of command string.
-      set(service, "command", this.command.serialize());
+      set(service, 'command', this.command.serialize());
     }
 
     // when there are variables to be set.
     if (this.variables.length > 0) {
-      set(service, "environment", map(this.variables, (v) => v.serialize()));
+      set(service, 'environment', map(this.variables, (v) => v.serialize()));
     }
     // when there are port mappings to be set.
     if (this.portMappings.length > 0) {
-      set(service, "ports", map(this.portMappings, (p) => p.serialize()));
+      set(service, 'ports', map(this.portMappings, (p) => p.serialize()));
     }
 
     // non linkable services should link to all linkable ones.
     if ((this.linkable === false) && linkableServices.length > 0) {
-      set(service, "links", map(linkableServices, (s: ComposeService) => {
+      set(service, 'links', map(linkableServices, (s: ComposeService) => {
         return s.name;
       }));
     }
 
     // return docker-compose service object.
-    return { "name": this.name, "x-comment": this.comment, "data": service };
+    return { 'name': this.name, 'x-comment': this.comment, 'data': service };
   }
 }

@@ -1,9 +1,9 @@
 // import base command.
-import { Select } from "enquirer/lib/prompts";
-import { Command } from "lib/support/console/command";
-import { map, mapKeys, mapValues } from "lodash";
-import { run } from "lib/support/docker";
-import { DockerVolume } from "lib/support/docker/volume";
+import { Select } from 'enquirer/lib/prompts';
+import { Command } from 'lib/support/console/command';
+import { map, mapKeys, mapValues } from 'lodash';
+import { run } from 'lib/support/docker';
+import { DockerVolume } from 'lib/support/docker/volume';
 
 /**
  * Class ConfigCommand.
@@ -13,11 +13,11 @@ import { DockerVolume } from "lib/support/docker/volume";
 export abstract class RunnerCommand extends Command {
   // list of runner volumes to be created and mounted.
   protected runnerVolumes: DockerVolume[] = [
-    new DockerVolume({name: "ambientum-cache", mountPath: "/home/ambientum/.cache"}),
-    new DockerVolume({name: "ambientum-config", mountPath: "/home/ambientum/.config"}),
-    new DockerVolume({name: "ambientum-local", mountPath: "/home/ambientum/.local"}),
-    new DockerVolume({name: "ambientum-ssh", mountPath: "/home/ambientum/.ssh"}),
-    new DockerVolume({name: "ambientum-composer", mountPath: "/home/ambientum/.composer"}),
+    new DockerVolume({name: 'ambientum-cache', mountPath: '/home/ambientum/.cache'}),
+    new DockerVolume({name: 'ambientum-config', mountPath: '/home/ambientum/.config'}),
+    new DockerVolume({name: 'ambientum-local', mountPath: '/home/ambientum/.local'}),
+    new DockerVolume({name: 'ambientum-ssh', mountPath: '/home/ambientum/.ssh'}),
+    new DockerVolume({name: 'ambientum-composer', mountPath: '/home/ambientum/.composer'}),
   ];
 
   // fire config command.
@@ -26,7 +26,7 @@ export abstract class RunnerCommand extends Command {
     const commandName = this.app.argsParser.commandName();
 
     // determine image name.
-    const imageType = ((["-p", "php"].indexOf(commandName)) !== -1) ? "php" : "node";
+    const imageType = ((['-p', 'php'].indexOf(commandName)) !== -1) ? 'php' : 'node';
     // get image config.
     const imageConfig = this.config.get(imageType);
     // build image name from stored config.
@@ -51,7 +51,7 @@ export abstract class RunnerCommand extends Command {
     // build mount points from runner volumes.
     const mountPoints = map(this.runnerVolumes, (v: DockerVolume) => v.mountPoint());
     // map current director to /var/www/app path inside container.
-    mountPoints.push({ Target: "/var/www/app", Source: process.cwd(), Type: "bind", ReadyOnly: false });
+    mountPoints.push({ Target: '/var/www/app', Source: process.cwd(), Type: 'bind', ReadyOnly: false });
 
     // return all mounts list.
     return mountPoints;

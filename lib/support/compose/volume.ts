@@ -32,9 +32,9 @@ export class ComposeVolume implements IComposeVolume {
   // serialize to compose-specific.
   public serialize() {
     // create a volume variable.
-    const volume = { driver: this.driver || "local" };
+    const volume = { driver: this.driver || 'local' };
 
     // return docker-compose volume object.
-    return { "name": this.name, "x-comment": this.comment, "data": volume };
+    return { 'name': this.name, 'x-comment': this.comment, 'data': volume };
   }
 }

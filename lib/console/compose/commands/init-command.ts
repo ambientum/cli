@@ -1,9 +1,9 @@
 // import base command.
-import { Input, Select } from "enquirer/lib/prompts";
-import { Command, UsageExample } from "lib/support/console";
-import { ComposeBuilder } from "../builder/builder";
-import { readFileSync } from "fs";
-import YAML from "yaml";
+import { Input, Select } from 'enquirer/lib/prompts';
+import { Command, UsageExample } from 'lib/support/console';
+import { ComposeBuilder } from '../builder/builder';
+import { readFileSync } from 'fs';
+import YAML from 'yaml';
 
 /**
  * Class InitCommand.
@@ -12,16 +12,16 @@ import YAML from "yaml";
  */
 export class InitCommand extends Command {
   // command name.
-  public name: string = "init";
+  public name: string = 'init';
   // command description.
-  public description: string = "Initialize docker-compose.yml configuration for a project.";
+  public description: string = 'Initialize docker-compose.yml configuration for a project.';
 
   // command triggers.
-  public triggers: string[] = ["init", "-i"];
+  public triggers: string[] = ['init', '-i'];
 
   // command usage examples.
   public usage: UsageExample[] = [
-    { command: "amb init", description: "Run interactive docker-compose.yml creation." },
+    { command: 'amb init', description: 'Run interactive docker-compose.yml creation.' },
   ];
 
   // compose builder.

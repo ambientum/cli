@@ -1,8 +1,8 @@
 // import chalk for colorful output.
-import chalk from "chalk";
+import chalk from 'chalk';
 // import lodash helpers.
-import { map, max } from "lodash";
-import { Command, UsageExample } from "../command";
+import { map, max } from 'lodash';
+import { Command, UsageExample } from '../command';
 
 /**
  * Class CommandHelp.
@@ -23,7 +23,7 @@ export class CommandHelp {
     console.log(chalk.grey(this.command.getDescription()));
     console.log();
     console.groupEnd();
-    console.group("Aliases:");
+    console.group('Aliases:');
     map(this.command.getTriggers(), (trigger: string) => {
       console.log(chalk.yellow(`amb ${trigger}`));
     });
@@ -31,7 +31,7 @@ export class CommandHelp {
     console.groupEnd();
 
     // display usage group.
-    console.group("Usage Examples");
+    console.group('Usage Examples');
     // get pad size cor command on usage line.
     const padSize = this.UsageExamplePadSize();
     // loop thorough usage lines...

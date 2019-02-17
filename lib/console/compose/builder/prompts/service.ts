@@ -1,8 +1,8 @@
 // import base prompts.
-import { Confirm, Form, Select } from "enquirer/lib/prompts";
-import { ComposeService } from "lib/support/compose";
-import { each, map, toNumber } from "lodash";
-import { ComposeBuilder } from "../builder";
+import { Confirm, Form, Select } from 'enquirer/lib/prompts';
+import { ComposeService } from 'lib/support/compose';
+import { each, map, toNumber } from 'lodash';
+import { ComposeBuilder } from '../builder';
 
 /**
  * Interface IPromptPort.
@@ -158,7 +158,7 @@ export abstract class ServicePrompt {
   protected askTagQuestion() {
     return (new Select({
       name: `${this.slug}.tag`,
-      message: "➜ Select a version:",
+      message: '➜ Select a version:',
       choices: this.tags,
     })).run();
   }
@@ -178,7 +178,7 @@ export abstract class ServicePrompt {
         return {
           name: v.name,
           message: v.description,
-          initial: ((v.initial === "project") ? this.builder.project : v.initial),
+          initial: ((v.initial === 'project') ? this.builder.project : v.initial),
         };
       }),
     })).run();

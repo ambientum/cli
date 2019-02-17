@@ -1,6 +1,6 @@
 // import base command.
-import { Select } from "enquirer/lib/prompts";
-import { Command, UsageExample } from "lib/support/console/command";
+import { Select } from 'enquirer/lib/prompts';
+import { Command, UsageExample } from 'lib/support/console/command';
 
 /**
  * Class ConfigCommand.
@@ -9,20 +9,20 @@ import { Command, UsageExample } from "lib/support/console/command";
  */
 export class ConfigCommand extends Command {
   // command name.
-  public name: string = "config";
+  public name: string = 'config';
   // command description.
-  public description: string = "Global Ambientum settings.";
+  public description: string = 'Global Ambientum settings.';
 
   // command usage examples.
   public usage: UsageExample[] = [
-    { command: "amb config", description: "Run interactive configuration." },
-    { command: "amb config get", description: "Return all configuration." },
-    { command: "amb config get php.tag", description: "Return a specific config key." },
-    { command: "amb config set php.tag value", description: "Return a specific config key." },
+    { command: 'amb config', description: 'Run interactive configuration.' },
+    { command: 'amb config get', description: 'Return all configuration.' },
+    { command: 'amb config get php.tag', description: 'Return a specific config key.' },
+    { command: 'amb config set php.tag value', description: 'Return a specific config key.' },
   ];
 
   // command triggers.
-  public triggers: string[] = [ "config", "-c" ];
+  public triggers: string[] = [ 'config', '-c' ];
 
   // fire config command.
   public run(action: string, key: string, value: string): void {
@@ -32,17 +32,17 @@ export class ConfigCommand extends Command {
     }
 
     // handle "amb config path".
-    if (action === "path") {
+    if (action === 'path') {
       console.log(this.handlePath());
     }
 
     // handle "amb config get"
-    if (action === "get") {
+    if (action === 'get') {
       console.log(this.handleGet(key || null));
     }
 
     // handle "amb config set"
-    if (action === "set") {
+    if (action === 'set') {
       console.log(this.handleSet(key || null, value || null));
     }
   }
@@ -67,7 +67,7 @@ export class ConfigCommand extends Command {
   public handleSet(key: string , value: string) {
     // when no key or no value provided, error and exit.
     if (key === null || value === null) {
-      return "Key and Value parameters are required.";
+      return 'Key and Value parameters are required.';
     }
 
     // set value on config.
@@ -81,23 +81,23 @@ export class ConfigCommand extends Command {
   protected async interactiveConfiguration() {
     // Question for PHP version.
     const askPHPVersion = new Select({
-      message: "Global PHP version:",
-      initial: this.config.get("php.tag") || "7.2",
-      choices: [ "7.2", "7.3", "latest" ],
+      message: 'Global PHP version:',
+      initial: this.config.get('php.tag') || '7.2',
+      choices: [ '7.2', '7.3', 'latest' ],
     });
 
     // ask the question and set on config.
-    this.config.set("php.tag", await askPHPVersion.run());
+    this.config.set('php.tag', await askPHPVersion.run());
 
     // Question for Node.JS version.
     const askNodeVersion = new Select({
-      message: "Global Node.JS version:",
-      initial: this.config.get("node.tag") || "11",
-      choices: [ "10", "11", "lts", "latest" ],
+      message: 'Global Node.JS version:',
+      initial: this.config.get('node.tag') || '11',
+      choices: [ '10', '11', 'lts', 'latest' ],
     });
 
     // ask the question and set on config.
-    this.config.set("node.tag", await askNodeVersion.run());
+    this.config.set('node.tag', await askNodeVersion.run());
 
     // return all config after interactive run.
     return this.config.all();

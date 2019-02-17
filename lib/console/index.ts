@@ -1,11 +1,11 @@
 // import ConsoleKernel class.
-import { ConsoleApplication } from "lib/support/console/application";
+import { ConsoleApplication } from 'lib/support/console/application';
 // import project options from package.json.
-import { slug, title, version } from "package.json";
+import { slug, title, version } from 'package.json';
 // import console groups.
-import commonGroup from "./common";
-import composeGroup from "./compose";
-import runnerGroup from "./runner";
+import commonGroup from './common';
+import composeGroup from './compose';
+import runnerGroup from './runner';
 
 // bootstrap function (initialize application instance).
 export const bootstrap = () => {

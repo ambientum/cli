@@ -1,7 +1,7 @@
 // import lodash helpers.
-import { first, slice } from "lodash";
+import { first, slice } from 'lodash';
 // import meow argv parser.
-import meow from "meow";
+import meow from 'meow';
 
 // export ArgsParser.
 export class ArgsParser {

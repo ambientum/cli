@@ -1,7 +1,7 @@
 // import Configstore.
-import Configstore from "configstore";
+import Configstore from 'configstore';
 // import package.json
-import { slug } from "package.json";
+import { slug } from 'package.json';
 
 /**
  * Class GlobalConfig.

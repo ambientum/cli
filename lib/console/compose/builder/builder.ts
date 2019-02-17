@@ -1,7 +1,7 @@
 // import DockerCompose class.
-import { DockerCompose } from "lib/support/compose";
+import { DockerCompose } from 'lib/support/compose';
 // import all prompts.
-import * as prompts from "./prompts";
+import * as prompts from './prompts';
 
 /**
  * Class ComposeBuilder.

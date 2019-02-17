@@ -1,11 +1,11 @@
 // import lodash helpers.
-import { find, map } from "lodash";
+import { find, map } from 'lodash';
 // import Command class.
-import { Command } from "./command";
+import { Command } from './command';
 // import CommandGroup class.
-import { CommandGroup } from "./group";
+import { CommandGroup } from './group';
 // import ArgsParser class.
-import { ArgsParser } from "./helpers/args-parser";
+import { ArgsParser } from './helpers/args-parser';
 
 // interface for console kernel options.
 interface ConsoleApplicationOptions {
@@ -63,7 +63,7 @@ export class ConsoleApplication {
     const commandName = this.argsParser.commandName();
 
     // find the first command matching the current args.
-    const command = this.findCommand(commandName || "help");
+    const command = this.findCommand(commandName || 'help');
 
     // check if command exists.
     if (command === undefined) {

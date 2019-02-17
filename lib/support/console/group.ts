@@ -1,7 +1,7 @@
 // import ConsoleApplication class.
-import { ConsoleApplication } from "./application";
+import { ConsoleApplication } from './application';
 // import Command class.
-import { Command } from "./command";
+import { Command } from './command';
 
 /**
  * Class CommandGroup: Simple grouper for commands..

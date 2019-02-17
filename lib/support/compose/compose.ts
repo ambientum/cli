@@ -1,11 +1,11 @@
 // import lodash helpers.
-import { find, filter, map, merge } from "lodash";
+import { find, filter, map, merge } from 'lodash';
 // import YAML builder.
-import { YAMLBuilder } from "./yaml/builder";
+import { YAMLBuilder } from './yaml/builder';
 // import compose service class.
-import { ComposeService } from "./service";
+import { ComposeService } from './service';
 // import compose volume class.
-import { ComposeVolume } from "./volume";
+import { ComposeVolume } from './volume';
 
 /**
  * Class DockerCompose.
@@ -26,7 +26,7 @@ export class DockerCompose {
   protected services: ComposeService[] = [];
 
   // constructor.
-  public constructor(project: string, version: string = "3.6") {
+  public constructor(project: string, version: string = '3.6') {
     // assign project name.
     this.project = project;
     // assign compose version.
@@ -44,7 +44,7 @@ export class DockerCompose {
   }
 
   // set compose syntax version.
-  public setVersion(version: string = "3.6") {
+  public setVersion(version: string = '3.6') {
     this.version = version;
   }
 
