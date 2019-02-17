@@ -3,3 +3,5 @@
 /yarn.lock
 /yarn-error.log
 /.idea
+/docker-compose.yml
+

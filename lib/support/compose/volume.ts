@@ -1,3 +1,6 @@
+// import lodash helpers.
+import { set } from "lodash";
+
 /**
  * Interface IComposeVolume.
  */
@@ -26,7 +29,7 @@ export class ComposeVolume implements IComposeVolume {
 
   // serialize to compose-specific.
   public serialize() {
-    return { driver: this.driver || "local" };
+    return set({}, this.name, { driver: this.driver || "local" });
   }
 }
 
