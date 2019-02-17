@@ -9,6 +9,7 @@
     ]
   },
   "rules": {
+    "interface-name": false,
     "max-line-length": {
       "options": [120]
     },

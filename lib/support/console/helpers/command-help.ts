@@ -1,47 +1,41 @@
 // import chalk for colorful output.
 import chalk from "chalk";
 // import lodash helpers.
-import { reduce } from "lodash";
-
-// interface for usage lines.
-export interface IUsageLine {
-  command: string;
-  description: string;
-}
-
-// interface for command help options.
-interface ICommandHelpOptions {
-  // command name.
-  name: string;
-  // command description.
-  description: string;
-  // command usage examples.
-  usage: IUsageLine[];
-}
+import { map, max } from "lodash";
+import { Command, UsageExample } from "../command";
 
 /**
  * Class CommandHelp.
  */
 export class CommandHelp {
-  // help options.
-  protected options: ICommandHelpOptions;
+  // command instance.
+  protected command: Command;
 
   // constructor
-  public constructor(options: ICommandHelpOptions) {
-    // assign command options.
-    this.options = options;
+  public constructor(command: Command) {
+    // assign command instance.
+    this.command = command;
   }
 
   // render help text for the given command.
   public render() {
-    // display basic info.
-    console.log(chalk.yellow(this.options.name), chalk.grey(this.options.description), "\n");
+    console.group(chalk.yellow(this.command.getName()));
+    console.log(chalk.grey(this.command.getDescription()));
+    console.log();
+    console.groupEnd();
+    console.group("Aliases:");
+    map(this.command.getTriggers(), (trigger: string) => {
+      console.log(chalk.yellow(`amb ${trigger}`));
+    });
+    console.log();
+    console.groupEnd();
+
     // display usage group.
     console.group("Usage Examples");
     // get pad size cor command on usage line.
-    const padSize = this.usageLinePadSize();
+    const padSize = this.UsageExamplePadSize();
     // loop thorough usage lines...
-    this.options.usage.forEach((line: IUsageLine) => {
+    this.command.getUsage().forEach((line: UsageExample) => {
       // print each example usage.
       console.log(chalk.green(line.command.padEnd(padSize)), chalk.grey(line.description));
     });
@@ -50,12 +44,9 @@ export class CommandHelp {
   }
 
   // calculate the length to pad each command name (display as virtual table.)
-  protected usageLinePadSize() {
+  protected UsageExamplePadSize() {
     // get the max length for the commands on usage lines.
-    const maxCommandLength = reduce(this.options.usage, (current: number, line: IUsageLine) => {
-      // return the length if the biggest so far, or the current max value.
-      return (line.command.length >= current) ? line.command.length : current;
-    }, 1); // start with one.
+    const maxCommandLength = max(map(this.command.getUsage(), (line: UsageExample) => (line.command).length));
 
     // make sure there are 3 chars spacing, then get into a number that is multiple of 5.
     return (Math.ceil((maxCommandLength + 3) / 5)) * 5;

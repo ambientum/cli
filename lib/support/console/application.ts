@@ -8,7 +8,7 @@ import { CommandGroup } from "./group";
 import { ArgsParser } from "./helpers/args-parser";
 
 // interface for console kernel options.
-interface IConsoleApplicationOptions {
+interface ConsoleApplicationOptions {
   title: string;
   slug: string;
   version: string;
@@ -22,7 +22,7 @@ interface IConsoleApplicationOptions {
 export class ConsoleApplication {
 
   // static init method, for factoring the singleton.
-  public static init(params?: IConsoleApplicationOptions) {
+  public static init(params?: ConsoleApplicationOptions) {
     // create an instance application instance.
     this.instance = new this(params);
 
@@ -42,13 +42,13 @@ export class ConsoleApplication {
   public argsParser: ArgsParser;
 
   // console app options.
-  protected options: IConsoleApplicationOptions;
+  protected options: ConsoleApplicationOptions;
 
   // list of commands on the application.
   protected commands: Command[];
 
   // constructor.
-  protected constructor(params?: IConsoleApplicationOptions) {
+  protected constructor(params?: ConsoleApplicationOptions) {
     // assign console app options.
     this.options = params;
     // assign ArgsParser instance.
@@ -63,14 +63,14 @@ export class ConsoleApplication {
     const commandName = this.argsParser.commandName();
 
     // find the first command matching the current args.
-    const command = this.findCommand(commandName);
+    const command = this.findCommand(commandName || "help");
 
     // check if command exists.
     if (command === undefined) {
       // if undefined...
     } else {
       // run with all command args.
-      return command.run(...this.argsParser.commandArgs());
+      return command.run(...this.argsParser.commandArgs()); // .catch((e) => console.log("Error happened!"));
     }
   }
 

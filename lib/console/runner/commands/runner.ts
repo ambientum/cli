@@ -2,8 +2,8 @@
 import { Select } from "enquirer/lib/prompts";
 import { Command } from "lib/support/console/command";
 import { map, mapKeys, mapValues } from "lodash";
-import { run } from "../../../support/docker";
-import { DockerVolume } from "../../../support/docker/volume";
+import { run } from "lib/support/docker";
+import { DockerVolume } from "lib/support/docker/volume";
 
 /**
  * Class ConfigCommand.
@@ -73,6 +73,3 @@ export abstract class RunnerCommand extends Command {
     };
   }
 }
-
-// default export / alias.
-export default RunnerCommand;

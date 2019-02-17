@@ -1,140 +1,101 @@
 // import lodash helpers.
-import { set, map, get } from "lodash";
-// import interfaces from module.
-import { IComposeLink, IComposeMount, IComposePort, IComposeVariable, IComposeVolume } from "./index";
+import { set, map } from "lodash";
+// import service resource classes.
+import * as res from "./resources";
+// import volume classes.
+import { ComposeVolume, IComposeVolume } from "./volume";
 
 /**
  * Class ComposeService.
  */
 export class ComposeService {
   // service name.
-  protected name: string;
+  public name: string;
   // service image.
-  protected image: string;
+  public image: string;
+
+  // comment for the final YAML file.
+  public comment: string = null;
 
   // service command.
-  protected command: string = null;
+  public command: res.ComposeCommand = null;
 
   // list of mount points.
-  protected mountPoints: IComposeMount[] = [];
+  public mountPoints: res.ComposeMount[] = [];
 
   // list of port mappings.
-  protected portMappings: IComposePort[] = [];
+  public portMappings: res.ComposePort[] = [];
 
   // list of links to another services.
-  protected links: IComposeLink[] = [];
+  public links: res.ComposeLink[] = [];
 
   // list of variables.
-  protected variables: IComposeVariable[] = [];
+  public variables: res.ComposeVariable[] = [];
 
   // list of volumes.
-  protected volumes: IComposeVolume[] = [];
+  public volumes: ComposeVolume[] = [];
 
   // linkable or not.
-  protected linkable: boolean = false;
+  public linkable: boolean = false;
 
   // set service name.
-  public setName(name: string): ComposeService {
+  public setName(name: string) {
     // set name.
     this.name = name;
-    // fluent return.
-    return this;
-  }
-
-  // get service name.
-  public getName() {
-    return this.name;
   }
 
   // set service image.
-  public setImage(image: string): ComposeService {
+  public setImage(image: string) {
     // set image.
     this.image = image;
-    // fluent return.
-    return this;
   }
 
-  // get service image.
-  public getImage() {
-    return this.image;
+  // set service image.
+  public setComment(comment: string) {
+    // set image.
+    this.comment = comment;
   }
 
   // set service command.
-  public setCommand(command: string): ComposeService {
+  public setCommand(command: res.IComposeCommand) {
     // set command.
-    this.command = command;
-    // fluent return.
-    return this;
-  }
-
-  // get service command.
-  public getCommand() {
-    return this.command;
+    this.command = new res.ComposeCommand(command);
   }
 
   // add mount point.
-  public addMountPoint(mountPoint: IComposeMount): ComposeService {
+  public addMountPoint(mountPoint: res.IComposeMount) {
     // push into mounts array.
-    this.mountPoints.push(mountPoint);
-    // fluent return.
-    return this;
-  }
-
-  // get service mount points.
-  public getMountPoints(): IComposeMount[] {
-    return this.mountPoints;
+    this.mountPoints.push(new res.ComposeMount(mountPoint));
   }
 
   // add port mapping.
-  public addPortMapping(portMapping: IComposePort): ComposeService {
+  public addPortMapping(portMapping: res.IComposePort) {
     // push into mappings array.
-    this.portMappings.push(portMapping);
-    // fluent return.
-    return this;
-  }
-
-  // get service port mappings.
-  public getPortMappings(): IComposePort[] {
-    return this.portMappings;
+    this.portMappings.push(new res.ComposePort(portMapping));
   }
 
   // add service link.
-  public addLink(link: IComposeLink): ComposeService {
+  public addLink(link: res.IComposeLink): ComposeService {
     // push into links array.
-    this.links.push(link);
+    this.links.push(new res.ComposeLink(link));
     // fluent return.
     return this;
-  }
-
-  // get service links.
-  public getLinks(): IComposeLink[] {
-    return this.links;
   }
 
   // add service variable.
-  public addVariable(variable: IComposeVariable): ComposeService {
+  public addVariable(variable: res.IComposeVariable): ComposeService {
     // push into variables array.
-    this.variables.push(variable);
+    this.variables.push(new res.ComposeVariable(variable));
     // fluent return.
     return this;
-  }
-
-  // get service variables.
-  public getVariables(): IComposeVariable[] {
-    return this.variables;
   }
 
   // add service volume.
   public addVolume(volume: IComposeVolume): ComposeService {
     // push into volumes array.
-    this.volumes.push(volume);
+    this.volumes.push(new ComposeVolume(volume));
     // fluent return.
     return this;
-  }
-
-  // get service volumes.
-  public getVolumes(): IComposeVolume[] {
-    return this.volumes;
   }
 
   // set as linkable or not.
@@ -145,52 +106,41 @@ export class ComposeService {
     return this;
   }
 
-  // get linkable status.
-  public isLinkable(): boolean {
-    return this.linkable;
-  }
-
   // return the service compose object.
-  public toComposeObject(linkableServices: ComposeService[]): object {
-    // start service config.
+  public serialize(linkableServices: ComposeService[]): object {
+    // start service object.
     const service = {
-      image: this.getImage(), // service image.
+      image: this.image, // service image.
     };
 
     // when there are mount points.
-    if (this.getMountPoints().length > 0) {
-      set(service, "volumes", map(this.getMountPoints(), (m: IComposeMount) => {
-        return `${m.source}:${m.target}`;
-      }));
+    if (this.mountPoints.length > 0) {
+      set(service, "volumes", map(this.mountPoints, (m: res.ComposeMount) => m.serialize()));
     }
 
     // when service command is not null (not default command).
-    if (this.getCommand() !== null) {
+    if (this.command !== null) {
       // set command key with array consisting of split by space values of command string.
-      set(service, "command", this.getCommand().split(" "));
+      set(service, "command", this.command.serialize());
     }
 
     // when there are variables to be set.
-    if (this.getVariables().length > 0) {
-      set(service, "environment", map(this.getVariables(), (v: IComposeVariable) => {
-        return `${v.name}=${v.value}`;
-      }));
+    if (this.variables.length > 0) {
+      set(service, "environment", map(this.variables, (v) => v.serialize()));
     }
     // when there are port mappings to be set.
-    if (this.getPortMappings().length > 0) {
-      set(service, "ports", map(this.getPortMappings(), (p: IComposePort) => {
-        return `${p.hostPort}:${p.containerPort}`;
-      }));
+    if (this.portMappings.length > 0) {
+      set(service, "ports", map(this.portMappings, (p) => p.serialize()));
     }
 
     // non linkable services should link to all linkable ones.
-    if ((this.isLinkable() === false) && linkableServices.length > 0) {
+    if ((this.linkable === false) && linkableServices.length > 0) {
       set(service, "links", map(linkableServices, (s: ComposeService) => {
-        return s.getName();
+        return s.name;
       }));
     }
 
     // return docker-compose service object.
-    return service;
+    return { "name": this.name, "x-comment": this.comment, "data": service };
   }
 }

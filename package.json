@@ -1,6 +1,6 @@
 {
   "name": "@ambientum/cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "title": "Ambientum CLI",
   "slug": "ambientum-cli",
   "description": "Ambientum",
@@ -14,12 +14,11 @@
     "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
     "build": "npm run clear && npm run babel",
     "start": "nodemon",
-    "generate": "npm run babel && pkg -t node10-macos,node10-linux,node10-win bin/amb --out-path out"
+    "generate": "npm run build && pkg -t node8-macos,node8-linux,node8-win bin/amb --out-path out"
   },
   "pkg": {
     "scripts": [
-      "dist/**/*.js",
-      "bin/amb"
+      "dist/**/*.js"
     ]
   },
   "bin": {
@@ -46,8 +45,10 @@
     "@types/lodash": "^4.14.120",
     "@types/meow": "^5.0.0",
     "@types/node": "^11.9.0",
+    "@types/yaml": "^1.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
     "nodemon": "^1.18.10",
+    "pkg": "^4.3.7",
     "rimraf": "^2.6.3",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"

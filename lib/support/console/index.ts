@@ -1,4 +1,4 @@
-// export module resources.
+// export module res.
 export { ConsoleApplication } from "./application";
-export { Command } from "./command";
+export { Command, UsageExample } from "./command";
 export { CommandGroup } from "./group";

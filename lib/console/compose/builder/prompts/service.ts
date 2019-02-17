@@ -13,6 +13,14 @@ export interface IPromptPort {
 }
 
 /**
+ * Interface IPromptCommand.
+ */
+export interface IPromptCommand {
+  // full command string.
+  command: string;
+}
+
+/**
  * Interface IPromptVariable.
  */
 export interface IPromptVariable {
@@ -47,7 +55,8 @@ export abstract class ServicePrompt {
   public abstract slug: string;
   // docker image name.
   public abstract image: string;
-
+  // custom command.
+  public abstract command: string;
   // available tags (versions).
   public abstract tags: string[];
 
@@ -96,6 +105,8 @@ export abstract class ServicePrompt {
 
     // set service name as prompt slug (safe string for compose service name).
     this.service.setName(this.slug);
+    // set comment as being service descriptive name.
+    this.service.setComment(this.name);
     // set service as linkable or not (linkable => child services | not linkable => app services).
     this.service.setLinkable(this.linkable);
 
@@ -113,14 +124,14 @@ export abstract class ServicePrompt {
     const ports = await this.askPortMappingsQuestion();
 
     // loop through mappings, adding on service.
-    each(ports, (hostPortString, containerPortString) => {
-      // make host and container port numbers.
-      const hostPort = toNumber(hostPortString);
-      const containerPort = toNumber(containerPortString);
+    each(ports, (publishedPort, targetPort) => {
+      // cast ports to number.
+      const target = toNumber(targetPort);
+      const published = toNumber(publishedPort);
 
       // only add if host port is bigger than 1.
-      if (hostPort > 1) {
-        this.service.addPortMapping({ hostPort, containerPort });
+      if (published > 1) {
+        this.service.addPortMapping({ target, published });
       }
     });
 
