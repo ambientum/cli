@@ -1,37 +1,24 @@
 // import base command.
 import { Select } from "enquirer/lib/prompts";
-import { CommandHelp } from "../../../support/console/helpers/command-help";
+import { UsageExample } from "lib/support/console";
 import { RunnerCommand } from "./runner";
 
 /**
  * Class PhpRunnerCommand.
- *
- * Run a command on PHP global env.
  */
 export class PhpRunnerCommand extends RunnerCommand {
   // command name.
-  public signature: string = "-p <command...>";
-
+  public name: string = "php";
   // command description.
   public description: string = "Run a command on PHP global env.";
 
+  // command usage examples.
+  public usage: UsageExample[] = [
+    { command: "amb -p bash", description: "Run the Bash shell inside a PHP container." },
+    { command: "amb -p composer create laravel/laravel foo", description: "Create a project with Composer" },
+    { command: "amb -p composer install", description: "Install composer dependencies" },
+  ];
+
   // command triggers.
-  public triggers: string[] = [ "-p", "--php" ];
-
-  // return command help.
-  public getCommandHelp(): CommandHelp {
-    return new CommandHelp({
-      name: "-p",
-      description: this.description,
-      usage: [
-        { command: "amb -p bash", description: "Run the Bash shell inside a PHP container." },
-        { command: "amb -p composer create laravel/laravel foo", description: "Create a project with Composer" },
-        { command: "amb -p composer install", description: "Install composer dependencies" },
-      ],
-    });
-  }
-
+  public triggers: string[] = [ "php", "-p", "--php" ];
 }
-
-// default export / alias.
-export default PhpRunnerCommand;

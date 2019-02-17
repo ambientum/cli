@@ -11,4 +11,4 @@ export const pullImage = (imageName) => docker.pull(imageName, {})
     // detect keys to detach process.
     detectDetachingKeys(stream);
   })
-  .catch(console.log);
+  .catch(() => {});

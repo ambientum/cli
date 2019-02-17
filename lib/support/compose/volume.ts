@@ -1,6 +1,3 @@
-// import lodash helpers.
-import { set } from "lodash";
-
 /**
  * Interface IComposeVolume.
  */
@@ -9,6 +6,8 @@ export interface IComposeVolume {
   name: string;
   // volume driver.
   driver: string;
+  // comment for the volume.
+  comment?: string;
 }
 
 /**
@@ -19,19 +18,23 @@ export class ComposeVolume implements IComposeVolume {
   public name: string;
   // volume driver.
   public driver: string;
+  // comment for the volume.
+  public comment: string;
 
   // constructor.
   public constructor(options: IComposeVolume) {
     // assign values.
     this.name = options.name;
     this.driver = options.driver;
+    this.comment = options.comment || null;
   }
 
   // serialize to compose-specific.
   public serialize() {
-    return set({}, this.name, { driver: this.driver || "local" });
+    // create a volume variable.
+    const volume = { driver: this.driver || "local" };
+
+    // return docker-compose volume object.
+    return { "name": this.name, "x-comment": this.comment, "data": volume };
   }
 }
-
-// default export.
-export default ComposeVolume;

@@ -2,13 +2,13 @@
 import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from "../service";
 
 /**
- * Class LaravelAppPrompt.
+ * Class WebAppPrompt.
  */
-export class LaravelAppPrompt extends ServicePrompt {
+export class WebAppPrompt extends ServicePrompt {
   // service / question name.
-  public name: string = "Laravel (WEB)";
+  public name: string = "Web Application";
   // service slug (lowercase, normalized name).
-  public slug: string = "app";
+  public slug: string = "web";
   // docker image name.
   public image: string = "ambientum/php";
   // enabled by default status.
@@ -28,6 +28,7 @@ export class LaravelAppPrompt extends ServicePrompt {
 
   // variables.
   public variables: IPromptVariable[] = [
+    { name: "FRAMEWORK", description: "Framework? (laravel|symfony|generic)", initial: "laravel" },
     { name: "XDEBUG_ENABLED", description: "Enable xDebug?", initial: "true" },
     { name: "PHP_MEMORY_LIMIT", description: "PHP Memory Limit", initial: "256M" },
   ];

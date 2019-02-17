@@ -1,7 +1,6 @@
 // import base command.
 import { Select } from "enquirer/lib/prompts";
-import { Command } from "lib/support/console/command";
-import { CommandHelp } from "../../../support/console/helpers/command-help";
+import { Command, UsageExample } from "lib/support/console/command";
 
 /**
  * Class ConfigCommand.
@@ -10,28 +9,20 @@ import { CommandHelp } from "../../../support/console/helpers/command-help";
  */
 export class ConfigCommand extends Command {
   // command name.
-  public signature: string = "config [get|set] [k] [v]";
+  public name: string = "config";
   // command description.
   public description: string = "Global Ambientum settings.";
 
-  // command triggers.
-  public triggers: string[] = [
-    "config", "-c",
+  // command usage examples.
+  public usage: UsageExample[] = [
+    { command: "amb config", description: "Run interactive configuration." },
+    { command: "amb config get", description: "Return all configuration." },
+    { command: "amb config get php.tag", description: "Return a specific config key." },
+    { command: "amb config set php.tag value", description: "Return a specific config key." },
   ];
 
-  // command help.
-  public getCommandHelp(): CommandHelp {
-    return new CommandHelp({
-      name: "config",
-      description: this.description,
-      usage: [
-        { command: "amb config", description: "Run interactive configuration." },
-        { command: "amb config get", description: "Return all configuration." },
-        { command: "amb config get php.tag", description: "Return a specific config key." },
-        { command: "amb config set php.tag value", description: "Return a specific config key." },
-      ],
-    });
-  }
+  // command triggers.
+  public triggers: string[] = [ "config", "-c" ];
 
   // fire config command.
   public run(action: string, key: string, value: string): void {
@@ -91,6 +82,7 @@ export class ConfigCommand extends Command {
     // Question for PHP version.
     const askPHPVersion = new Select({
       message: "Global PHP version:",
+      initial: this.config.get("php.tag") || "7.2",
       choices: [ "7.2", "7.3", "latest" ],
     });
 
@@ -100,6 +92,7 @@ export class ConfigCommand extends Command {
     // Question for Node.JS version.
     const askNodeVersion = new Select({
       message: "Global Node.JS version:",
+      initial: this.config.get("node.tag") || "11",
       choices: [ "10", "11", "lts", "latest" ],
     });
 
@@ -109,8 +102,4 @@ export class ConfigCommand extends Command {
     // return all config after interactive run.
     return this.config.all();
   }
-
 }
-
-// default export / alias.
-export default ConfigCommand;

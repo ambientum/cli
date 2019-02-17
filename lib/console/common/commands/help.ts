@@ -3,7 +3,7 @@ import chalk from "chalk";
 // import lodash helpers.
 import { each, reduce, map, max } from "lodash";
 // import base command class.
-import { Command } from "lib/support/console/command";
+import { Command, UsageExample } from "lib/support/console/command";
 import { CommandHelp } from "lib/support/console/helpers/command-help";
 
 /**
@@ -19,15 +19,8 @@ export class HelpCommand extends Command {
   // command triggers.
   public triggers: string[] = [ "help", "-h" ];
 
-  // command help.
-  public getCommandHelp(): CommandHelp {
-    return new CommandHelp({
-      name: "help",
-      triggers: this.triggers,
-      description: this.description,
-      usage: [],
-    });
-  }
+  // command usage examples.
+  public usage: UsageExample[] = [];
 
   // fire config command.
   public run(name: string = null) {
@@ -78,7 +71,7 @@ export class HelpCommand extends Command {
     this.displayBanner();
 
     // get command help and call it's render method.
-    command.getCommandHelp().render();
+    new CommandHelp(command).render();
   }
 
   // display app banner.

@@ -1,8 +1,9 @@
 // import base command.
 import { Input, Select } from "enquirer/lib/prompts";
-import { Command } from "lib/support/console";
-import { CommandHelp } from "lib/support/console/helpers/command-help";
+import { Command, UsageExample } from "lib/support/console";
 import { ComposeBuilder } from "../builder/builder";
+import { readFileSync } from "fs";
+import YAML from "yaml";
 
 /**
  * Class InitCommand.
@@ -11,34 +12,30 @@ import { ComposeBuilder } from "../builder/builder";
  */
 export class InitCommand extends Command {
   // command name.
-  public signature: string = "init";
-
+  public name: string = "init";
   // command description.
   public description: string = "Initialize docker-compose.yml configuration for a project.";
 
   // command triggers.
   public triggers: string[] = ["init", "-i"];
 
+  // command usage examples.
+  public usage: UsageExample[] = [
+    { command: "amb init", description: "Run interactive docker-compose.yml creation." },
+  ];
+
   // compose builder.
   protected builder: ComposeBuilder;
 
-  // return help for the current command.
-  public getCommandHelp(): CommandHelp {
-    return new CommandHelp({
-      name: "init",
-      description: this.description,
-      usage: [
-        { command: "amb init", description: "Run interactive docker-compose.yml creation." },
-      ],
-    });
-  }
-
+  // run.
   public async run() {
     // create compose builder instance.
     this.builder = new ComposeBuilder();
-
+    // console.log(process.cwd() + "/docker-compose.yml");
+    // const file = readFileSync(process.cwd() + "/docker-compose.yml", { encoding: "utf8" });
+    // console.log(YAML.parse(file));
     // start builder.
-    console.log(await this.builder.start());
+    await this.builder.start();
   }
 }
 

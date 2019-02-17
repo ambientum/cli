@@ -1,34 +1,29 @@
 /**
- * Interface IComposeMount.
+ * Interface IComposeCommand.
  */
-export interface IComposeMount {
-  // volume name or host path.
-  source: string;
-  // path on container to mount.
-  target: string;
+export interface IComposeCommand {
+  // command string.
+  command: string;
 }
 
 /**
- * Class ComposeMount.
+ * Class ComposeCommand.
  */
-export class ComposeMount implements IComposeMount {
-  // volume name or host path.
-  public source: string;
-  // path on container to mount.
-  public target: string;
+export class ComposeCommand implements IComposeCommand {
+  // command string.
+  public command: string;
 
   // constructor.
-  public constructor(options: IComposeMount) {
+  public constructor(options: IComposeCommand) {
     // assign values.
-    this.source = options.source;
-    this.target = options.target;
+    this.command = options.command;
   }
 
   // serialize for compose.
   public serialize() {
-    return `${this.source}:${this.target}`;
+    return this.command ? this.command.split(" ") : null;
   }
 }
 
 // default export.
-export default ComposeMount;
+export default ComposeCommand;

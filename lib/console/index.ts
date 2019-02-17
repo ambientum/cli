@@ -14,10 +14,10 @@ export const bootstrap = () => {
 
   // add runner group commands.
   app.addCommandGroup(runnerGroup());
-  // add common group commands.
-  app.addCommandGroup(commonGroup());
   // add compose group commands.
   app.addCommandGroup(composeGroup());
+  // add common group commands.
+  app.addCommandGroup(commonGroup());
 
   // return app instance.
   return app;

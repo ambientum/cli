@@ -23,6 +23,11 @@ export class ComposeMount implements IComposeMount {
     this.source = options.source;
     this.target = options.target;
   }
+
+  // serialize for compose.
+  public serialize() {
+    return `${this.source}:${this.target}`;
+  }
 }
 
 // default export.

@@ -2,15 +2,16 @@
 import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from "../service";
 
 /**
- * Class WebAppPrompt.
+ * Class QueueRunnerPrompt.
  */
-export class WebAppPrompt extends ServicePrompt {
+export class QueueRunnerPrompt extends ServicePrompt {
   // service / question name.
-  public name: string = "Web Application";
+  public name: string = "Laravel Queue";
   // service slug (lowercase, normalized name).
-  public slug: string = "web";
+  public slug: string = "queue";
   // docker image name.
   public image: string = "ambientum/php";
+
   // enabled by default status.
   public enabledByDefault: boolean = true;
 
@@ -18,13 +19,11 @@ export class WebAppPrompt extends ServicePrompt {
   public linkable: boolean = false;
 
   // tags.
-  public tags: string[] = ["7.3-nginx", "7.2-nginx"];
+  public tags: string[] = ["7.3", "7.2"];
 
   // port mappings.
-  public ports: IPromptPort[] = [
-    { name: "HTTP", port: "8080" },
-    { name: "HTTPS", port: "8083" },
-  ];
+  // queue runner does not expose ports.
+  public ports: IPromptPort[] = [];
 
   // variables.
   public variables: IPromptVariable[] = [
