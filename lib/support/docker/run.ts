@@ -1,11 +1,11 @@
 // lodash helpers.
-import { assign } from "lodash";
+import { assign } from 'lodash';
 // import docker instance (Dockerode).
-import docker from "./docker";
+import docker from './docker';
 // import default options.
-import { defaultAttachOptions, defaultOptions } from "./options";
+import { defaultAttachOptions, defaultOptions } from './options';
 // import TTY helpers.
-import { detectDetachingKeys, exit, resize } from "./tty";
+import { detectDetachingKeys, exit, resize } from './tty';
 
 /**
  * Connect process stdout to container stdout.
@@ -22,7 +22,7 @@ export const connectStdout = (stream) => {
  */
 export const connectStdin = (stream) => {
   process.stdin.resume();
-  process.stdin.setEncoding("utf8");
+  process.stdin.setEncoding('utf8');
   process.stdin.setRawMode(true);
   process.stdin.pipe(stream);
 };
@@ -36,7 +36,7 @@ export const connectStdin = (stream) => {
 export const startContainer = (container, stream) => {
   container.start(() => {
     resize(container);
-    process.stdout.on("resize", () => resize(container));
+    process.stdout.on('resize', () => resize(container));
     container.wait(() => exit(stream));
   });
 };

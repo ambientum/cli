@@ -4,7 +4,7 @@
  * @type {{Object}}
  */
 export const defaultOptions = {
-  Hostname: "",
+  Hostname: '',
   // 'User': '',
   AttachStdin: true,
   AttachStdout: true,
@@ -14,8 +14,8 @@ export const defaultOptions = {
   StdinOnce: false,
   Env: null,
   // 'Cmd': ['sh'],
-  Dns: ["8.8.8.8", "8.8.4.4"],
-  Image: "alpine:3.8",
+  Dns: ['8.8.8.8', '8.8.4.4'],
+  Image: 'alpine:3.8',
   Volumes: {},
   VolumesFrom: [],
 };

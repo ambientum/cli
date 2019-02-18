@@ -21,7 +21,7 @@ export class ComposeCommand implements IComposeCommand {
 
   // serialize for compose.
   public serialize() {
-    return this.command ? this.command.split(" ") : null;
+    return this.command ? this.command.split(' ') : null;
   }
 }
 

@@ -1,6 +1,6 @@
-import { docker } from "./docker";
-import { connectStdin, connectStdout } from "./run";
-import { detectDetachingKeys } from "./tty";
+import { docker } from './docker';
+import { connectStdin, connectStdout } from './run';
+import { detectDetachingKeys } from './tty';
 
 export const pullImage = (imageName) => docker.pull(imageName, {})
   .then((stream) => {

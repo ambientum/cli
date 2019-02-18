@@ -1,17 +1,17 @@
-import { get } from "lodash";
+import { get } from 'lodash';
 
 /**
  * Control+P.
  *
  * @type {string}
  */
-export const CTRL_P = "\u0010";
+export const CTRL_P = '\u0010';
 
 /**
  * Control+Q.
  * @type {string}
  */
-export const CTRL_Q = "\u0011";
+export const CTRL_Q = '\u0011';
 
 /**
  * Handle keys for detaching process.
@@ -20,7 +20,7 @@ export const CTRL_Q = "\u0011";
  */
 export const detectDetachingKeys = (stream) => {
   let previousKey;
-  process.stdin.on("data", (key) => {
+  process.stdin.on('data', (key) => {
     if (previousKey === CTRL_P && key === CTRL_Q) {
       exit(stream);
     }
@@ -35,7 +35,7 @@ export const detectDetachingKeys = (stream) => {
  * @param stream
  */
 export const exit = (stream) => {
-  process.stdout.removeListener("resize", resize);
+  process.stdout.removeListener('resize', resize);
   process.stdin.removeAllListeners();
   process.stdin.setRawMode(isRawProcess());
   process.stdin.resume();
@@ -47,7 +47,7 @@ export const exit = (stream) => {
  *
  * @returns {Boolean}
  */
-export const isRawProcess = (): boolean => get(process, "isRaw");
+export const isRawProcess = (): boolean => get(process, 'isRaw');
 
 /**
  * Get current dimensions from process TTY.

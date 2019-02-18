@@ -1,9 +1,8 @@
-// import CommandGroup class.
-import { CommandGroup } from "lib/support/console";
-// import command classes.
-import { InitCommand } from "./commands/init-command";
+// imports.
+import { CommandGroup } from 'lib/support/console';
+import { InitCommand } from 'lib/console/compose/commands';
 
-// factory init group.
+// export group factory function.
 export default () => (new CommandGroup([
   new InitCommand(),
 ]));

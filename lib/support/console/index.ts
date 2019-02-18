@@ -1,4 +1,5 @@
-// export module res.
-export { ConsoleApplication } from "./application";
-export { Command, UsageExample } from "./command";
-export { CommandGroup } from "./group";
+// module exports.
+export { Command } from 'lib/support/console/Command';
+export { CommandGroup } from 'lib/support/console/CommandGroup';
+export { ConsoleApplication } from 'lib/support/console/ConsoleApplication';
+export { CommandHelp, ArgsParser } from 'lib/support/console/helpers';

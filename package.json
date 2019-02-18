@@ -1,6 +1,6 @@
 {
   "name": "@ambientum/cli",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "title": "Ambientum CLI",
   "slug": "ambientum-cli",
   "description": "Ambientum",
@@ -11,6 +11,7 @@
   "private": false,
   "scripts": {
     "clear": "rimraf ./dist && rimraf out/amb-*",
+    "lint": "tslint --fix lib/**/*.ts",
     "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
     "build": "npm run clear && npm run babel",
     "start": "nodemon",
