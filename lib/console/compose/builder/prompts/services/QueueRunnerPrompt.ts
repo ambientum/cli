@@ -5,14 +5,14 @@ import * as types from 'lib/console/compose/builder/prompts/types';
 // Class QueueRunnerPrompt.
 export class QueueRunnerPrompt extends ServicePrompt {
   // service / question name.
-  public name: string = 'Laravel Queue';
+  public name: string = 'Laravel Queue Worker';
   // service slug (lowercase, normalized name).
   public slug: string = 'queue';
   // docker image name.
   public image: string = 'ambientum/php';
 
-  // enabled by default status.
-  public enabledByDefault: boolean = true;
+  // laravel queue worker command.
+  public command: string = 'php artisan queue:work';
 
   // make not-linkable (main service).
   public linkable: boolean = false;
@@ -20,14 +20,11 @@ export class QueueRunnerPrompt extends ServicePrompt {
   // tags.
   public tags: string[] = ['7.3', '7.2'];
 
-  // port mappings.
-  // queue runner does not expose ports.
-  public ports: types.IPromptPort[] = [];
-
   // variables.
   public variables: types.IPromptVariable[] = [
     { name: 'FRAMEWORK', description: 'Framework? (laravel|symfony|generic)', initial: 'laravel' },
-    { name: 'XDEBUG_ENABLED', description: 'Enable xDebug?', initial: 'true' },
+    { name: 'XDEBUG_ENABLED', description: 'Enable xDebug?', initial: 'false' },
+    { name: 'OPCACHE_MODE', description: 'OpCache Mode: (normal|extreme|disabled)', initial: 'disabled' },
     { name: 'PHP_MEMORY_LIMIT', description: 'PHP Memory Limit', initial: '256M' },
   ];
 

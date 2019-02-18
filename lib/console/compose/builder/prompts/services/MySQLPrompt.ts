@@ -10,11 +10,6 @@ export class MySQLPrompt extends ServicePrompt {
   public slug: string = 'mysql';
   // docker image name.
   public image: string = 'mysql';
-  // enabled by default status.
-  public enabledByDefault: boolean = true;
-
-  // make linkable.
-  public linkable: boolean = true;
 
   // tags.
   public tags: string[] = ['5.7', '8.0'];
@@ -25,10 +20,10 @@ export class MySQLPrompt extends ServicePrompt {
   ];
   // variables.
   public variables: types.IPromptVariable[] = [
-    { name: 'MYSQL_ROOT_PASSWORD', description: 'MySQL Root Password', initial: 'project' },
-    { name: 'MYSQL_USERNAME', description: 'MySQL Username', initial: 'project' },
-    { name: 'MYSQL_PASSWORD', description: 'MySQL Password', initial: 'project' },
-    { name: 'MYSQL_DATABASE', description: 'MySQL Database', initial: 'project' },
+    { name: 'MYSQL_ROOT_PASSWORD', description: 'Root Password', initial: 'project' },
+    { name: 'MYSQL_USERNAME', description: 'Username', initial: 'project' },
+    { name: 'MYSQL_PASSWORD', description: 'Password', initial: 'project' },
+    { name: 'MYSQL_DATABASE', description: 'Database Name', initial: 'project' },
   ];
 
   // list of mount points.

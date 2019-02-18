@@ -13,9 +13,6 @@ export class PostgresPrompt extends ServicePrompt {
   // enabled by default status.
   public enabledByDefault: boolean = false;
 
-  // make linkable.
-  public linkable: boolean = true;
-
   // tags.
   public tags: string[] = ['11.2', '10.7', '9.6', '9.5'];
 
@@ -26,9 +23,9 @@ export class PostgresPrompt extends ServicePrompt {
 
   // variables.
   public variables: types.IPromptVariable[] = [
-    { name: 'POSTGRES_USER', description: 'PostgreSQL Username', initial: 'project' },
-    { name: 'POSTGRES_PASSWORD', description: 'PostgreSQL Password', initial: 'project' },
-    { name: 'POSTGRES_DB', description: 'PostgreSQL Database', initial: 'project' },
+    { name: 'POSTGRES_USER', description: 'Username', initial: 'project' },
+    { name: 'POSTGRES_PASSWORD', description: 'Password', initial: 'project' },
+    { name: 'POSTGRES_DB', description: 'Database Name', initial: 'project' },
   ];
 
   // list of mount points.

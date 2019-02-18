@@ -1,5 +1,5 @@
 // imports.
-import { each, map, toNumber } from 'lodash';
+import { each, map, toNumber, first } from 'lodash';
 import { Confirm, Form, Select } from 'enquirer/lib/prompts';
 import { DockerComposeService } from 'lib/support/compose';
 import { ComposeBuilder } from 'lib/console/compose/builder';
@@ -13,24 +13,24 @@ export abstract class ServicePrompt {
   public abstract slug: string;
   // docker image name.
   public abstract image: string;
-
   // available tags (versions).
   public abstract tags: string[];
+  // command to run.
+  public command: string = null;
+  // set as linkable (child service) or not.
+  public linkable: boolean = true;
 
   // enabled by default status.
-  public abstract enabledByDefault: boolean;
-
-  // set as linkable (child service) or not.
-  public abstract linkable: boolean;
+  public enabledByDefault: boolean = true;
 
   // port mappings.
-  public abstract ports: types.IPromptPort[];
+  public ports: types.IPromptPort[] = [];
   // variables.
-  public abstract variables: types.IPromptVariable[];
+  public variables: types.IPromptVariable[] = [];
   // mount points
-  public abstract mountPoints: types.IPromptMount[];
+  public mountPoints: types.IPromptMount[] = [];
   // volumes.
-  public abstract volumes: types.IPromptVolume[];
+  public volumes: types.IPromptVolume[] = [];
 
   // compose builder reference.
   protected builder: ComposeBuilder;
@@ -68,7 +68,7 @@ export abstract class ServicePrompt {
     this.service.setLinkable(this.linkable);
 
     // ask tag selection question.
-    const tag = await this.askTagQuestion();
+    const tag = this.tags.length > 1 ? await this.askTagQuestion() : first(this.tags);
     // set image name on service.
     this.service.setImage(`${this.image}:${tag}`);
 
@@ -97,6 +97,11 @@ export abstract class ServicePrompt {
 
     // loop through volumes, adding on service.
     each(this.volumes, (v: types.IPromptVolume) => this.service.addVolume(v));
+
+    // when the command is not null.
+    if (this.command !== null) {
+      this.service.setCommand({ command: this.command });
+    }
 
     // return build service.
     return this.service;

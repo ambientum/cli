@@ -10,8 +10,6 @@ export class WebAppPrompt extends ServicePrompt {
   public slug: string = 'web';
   // docker image name.
   public image: string = 'ambientum/php';
-  // enabled by default status.
-  public enabledByDefault: boolean = true;
 
   // make not-linkable (main service).
   public linkable: boolean = false;
@@ -29,6 +27,7 @@ export class WebAppPrompt extends ServicePrompt {
   public variables: types.IPromptVariable[] = [
     { name: 'FRAMEWORK', description: 'Framework? (laravel|symfony|generic)', initial: 'laravel' },
     { name: 'XDEBUG_ENABLED', description: 'Enable xDebug?', initial: 'true' },
+    { name: 'OPCACHE_MODE', description: 'OpCache Mode: (normal|extreme|disabled)', initial: 'normal' },
     { name: 'PHP_MEMORY_LIMIT', description: 'PHP Memory Limit', initial: '256M' },
   ];
 

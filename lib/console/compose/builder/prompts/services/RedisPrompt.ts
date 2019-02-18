@@ -10,11 +10,6 @@ export class RedisPrompt extends ServicePrompt {
   public slug: string = 'redis';
   // docker image name.
   public image: string = 'redis';
-  // enabled by default status.
-  public enabledByDefault: boolean = true;
-
-  // make linkable.
-  public linkable: boolean = true;
 
   // tags.
   public tags: string[] = ['5-alpine', '4-alpine'];
@@ -23,9 +18,6 @@ export class RedisPrompt extends ServicePrompt {
   public ports: types.IPromptPort[] = [
     { name: 'default', port: '6379' },
   ];
-
-  // variables.
-  public variables: types.IPromptVariable[] = [];
 
   // list of mount points.
   public mountPoints: types.IPromptMount[] = [

@@ -10,11 +10,9 @@ export class MongoPrompt extends ServicePrompt {
   public slug: string = 'mongo';
   // docker image name.
   public image: string = 'mongo';
-  // enabled by default status.
-  public enabledByDefault: boolean = true;
 
-  // make linkable.
-  public linkable: boolean = true;
+  // enabled by default status.
+  public enabledByDefault: boolean = false;
 
   // tags.
   public tags: string[] = ['4.1', '4.0', '3.6', '3.5'];
@@ -26,8 +24,8 @@ export class MongoPrompt extends ServicePrompt {
 
   // variables.
   public variables: types.IPromptVariable[] = [
-    { name: 'MONGO_INITDB_ROOT_USERNAME', description: 'MongoDB Root Username', initial: 'project' },
-    { name: 'MONGO_INITDB_ROOT_PASSWORD', description: 'MySQL Root Password', initial: 'project' },
+    { name: 'MONGO_INITDB_ROOT_USERNAME', description: 'Root Username', initial: 'project' },
+    { name: 'MONGO_INITDB_ROOT_PASSWORD', description: 'Root Password', initial: 'project' },
   ];
 
   // list of mount points.
