@@ -81,17 +81,11 @@ export class ConsoleApplication {
   // app commands getter.
   public getCommands(): Command[] { return this.commands; }
 
-  // app title getter.
-  public title() { return this.options.title; }
-
   // app slug getter.
   public slug() { return this.options.slug; }
 
   // app version getter.
   public version() { return this.options.version; }
-
-  // current action.
-  public requestedCommand() { return (this.argsParser.getFirst(0)); }
 
   // find a command by it's name (or trigger name).
   public findCommand(name: string): Command {

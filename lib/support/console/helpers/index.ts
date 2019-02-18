@@ -1,3 +1,3 @@
 // module exports.
-export { ArgsParser } from './ArgsParser';
-export { CommandHelp } from './CommandHelp';
+export { ArgsParser } from 'lib/support/console/helpers/ArgsParser';
+export { CommandHelp } from 'lib/support/console/helpers/CommandHelp';

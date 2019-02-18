@@ -1,11 +1,9 @@
-// import ConsoleApplication class.
+// imports.
 import { GlobalConfig } from 'lib/support/config';
 import { ConsoleApplication } from 'lib/support/console';
 import { UsageExample } from 'lib/support/console/types';
 
-/**
- * Class Command: Base implementation for console commands.
- */
+// Class Command: Base implementation for console commands.
 export abstract class Command {
   // command name (used for help mainly).
   public abstract name: string;

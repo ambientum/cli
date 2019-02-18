@@ -1,11 +1,8 @@
-// import Configstore.
+// imports.
 import Configstore from 'configstore';
-// import package.json
 import { slug } from 'package.json';
 
-/**
- * Class GlobalConfig.
- */
+// Class GlobalConfig.
 export class GlobalConfig {
   // home config instance.
   protected config: Configstore;
@@ -37,15 +34,3 @@ export class GlobalConfig {
     return key ? this.config.get(key) : this.all();
   }
 }
-
-/**
- * Alias export configuration nas 'config'
- *
- * @type {GlobalConfig}
- */
-export const config = new GlobalConfig();
-
-/**
- * @type {GlobalConfig}
- */
-export default config;

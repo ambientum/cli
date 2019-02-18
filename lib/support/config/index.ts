@@ -1,2 +1,2 @@
 // module exports.
-export { GlobalConfig } from './GlobalConfig';
+export { GlobalConfig } from 'lib/support/config/GlobalConfig';
