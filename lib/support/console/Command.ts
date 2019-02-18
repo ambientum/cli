@@ -1,14 +1,7 @@
 // import ConsoleApplication class.
-import { GlobalConfig } from '../config';
-import { ConsoleApplication } from './application';
-
-// interface for usage lines.
-export interface UsageExample {
-  // usage example.
-  command: string;
-  // usage description.
-  description: string;
-}
+import { GlobalConfig } from 'lib/support/config';
+import { ConsoleApplication } from 'lib/support/console';
+import { UsageExample } from 'lib/support/console/types';
 
 /**
  * Class Command: Base implementation for console commands.

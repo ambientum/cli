@@ -1,11 +1,8 @@
-import {
-  IPromptMount,
-  IPromptPort,
-  IPromptVariable,
-  IPromptVolume,
-  ServicePrompt,
-} from '../ServicePrompt';
+// imports.
+import { ServicePrompt } from 'lib/console/compose/builder/prompts';
+import * as types from 'lib/console/compose/builder/prompts/types';
 
+// Class MySQLPrompt.
 export class MySQLPrompt extends ServicePrompt {
   // service / question name.
   public name: string = 'MySQL';
@@ -23,11 +20,11 @@ export class MySQLPrompt extends ServicePrompt {
   public tags: string[] = ['5.7', '8.0'];
 
   // port mappings.
-  public ports: IPromptPort[] = [
+  public ports: types.IPromptPort[] = [
     { name: 'default', port: '3306' },
   ];
   // variables.
-  public variables: IPromptVariable[] = [
+  public variables: types.IPromptVariable[] = [
     { name: 'MYSQL_ROOT_PASSWORD', description: 'MySQL Root Password', initial: 'project' },
     { name: 'MYSQL_USERNAME', description: 'MySQL Username', initial: 'project' },
     { name: 'MYSQL_PASSWORD', description: 'MySQL Password', initial: 'project' },
@@ -35,12 +32,12 @@ export class MySQLPrompt extends ServicePrompt {
   ];
 
   // list of mount points.
-  public mountPoints: IPromptMount[] = [
+  public mountPoints: types.IPromptMount[] = [
     { source: 'mysql-data', target: '/var/lib/mysql' },
   ];
 
   // list of mount points.
-  public volumes: IPromptVolume[] = [
+  public volumes: types.IPromptVolume[] = [
     { name: 'mysql-data', driver: 'local' },
   ];
 }

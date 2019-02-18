@@ -11,12 +11,10 @@ interface IDockerVolumeOptions {
 
 // DockerVolume class definition.
 export class DockerVolume {
-
   // dockerode instance.
-  protected docker: Dockerode;
-
+  public docker: Dockerode;
   // volume options.
-  protected options: IDockerVolumeOptions;
+  public options: IDockerVolumeOptions;
 
   // DockerVolume constructor.
   public constructor(options: IDockerVolumeOptions) {

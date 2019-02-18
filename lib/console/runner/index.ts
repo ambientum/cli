@@ -1,9 +1,8 @@
-// import CommandGroup class.
+// imports.
 import { CommandGroup } from 'lib/support/console';
-// import commands classes.
-import { ConfigCommand, PHPRunnerCommand, NodeJSRunnerCommand } from './commands';
+import { ConfigCommand, PHPRunnerCommand, NodeJSRunnerCommand } from 'lib/console/runner/commands';
 
-// factory config group.
+// export group factory function.
 export default () => (new CommandGroup([
   new PHPRunnerCommand(),
   new NodeJSRunnerCommand(),

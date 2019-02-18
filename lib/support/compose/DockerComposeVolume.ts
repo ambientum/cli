@@ -1,19 +1,10 @@
-/**
- * Interface IComposeVolume.
- */
-export interface IComposeVolume {
-  // volume name.
-  name: string;
-  // volume driver.
-  driver: string;
-  // comment for the volume.
-  comment?: string;
-}
+// imports.
+import { IComposeVolume } from 'lib/support/compose/types';
 
 /**
- * Class ComposeVolume.
+ * Class DockerComposeVolume.
  */
-export class ComposeVolume implements IComposeVolume {
+export class DockerComposeVolume implements IComposeVolume {
   // volume name.
   public name: string;
   // volume driver.

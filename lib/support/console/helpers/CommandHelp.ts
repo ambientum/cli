@@ -1,8 +1,9 @@
 // import chalk for colorful output.
 import chalk from 'chalk';
+import { Command } from 'lib/support/console/Command';
+import { UsageExample } from 'lib/support/console/types/UsageExample';
 // import lodash helpers.
 import { map, max } from 'lodash';
-import { Command, UsageExample } from '../command';
 
 /**
  * Class CommandHelp.

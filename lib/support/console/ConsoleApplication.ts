@@ -1,18 +1,7 @@
-// import lodash helpers.
+// imports.
 import { find, map } from 'lodash';
-// import Command class.
-import { Command } from './command';
-// import CommandGroup class.
-import { CommandGroup } from './group';
-// import ArgsParser class.
-import { ArgsParser } from './helpers/args-parser';
-
-// interface for console kernel options.
-interface ConsoleApplicationOptions {
-  title: string;
-  slug: string;
-  version: string;
-}
+import { Command, CommandGroup, ArgsParser } from 'lib/support/console';
+import { ConsoleApplicationOptions } from 'lib/support/console/types';
 
 /**
  * Class ConsoleApplication.

@@ -1,53 +1,11 @@
-// import base prompts.
-import { Confirm, Form, Select } from 'enquirer/lib/prompts';
-import { ComposeService } from 'lib/support/compose';
+// imports.
 import { each, map, toNumber } from 'lodash';
-import { ComposeBuilder } from '../builder';
+import { Confirm, Form, Select } from 'enquirer/lib/prompts';
+import { DockerComposeService } from 'lib/support/compose';
+import { ComposeBuilder } from 'lib/console/compose/builder';
+import * as types from 'lib/console/compose/builder/prompts/types';
 
-/**
- * Interface IPromptPort.
- */
-export interface IPromptPort {
-  name: string;
-  port: string;
-}
-
-/**
- * Interface IPromptCommand.
- */
-export interface IPromptCommand {
-  // full command string.
-  command: string;
-}
-
-/**
- * Interface IPromptVariable.
- */
-export interface IPromptVariable {
-  name: string;
-  description: string;
-  initial: string|boolean;
-}
-
-/**
- * Interface IPromptMount.
- */
-export interface IPromptMount {
-  source: string;
-  target: string;
-}
-
-/**
- * Interface IPromptVolume.
- */
-export interface IPromptVolume {
-  name: string;
-  driver: string;
-}
-
-/**
- * Class BuilderServicePrompt.
- */
+// Class ServicePrompt.
 export abstract class ServicePrompt {
   // service / question name.
   public abstract name: string;
@@ -66,31 +24,31 @@ export abstract class ServicePrompt {
   public abstract linkable: boolean;
 
   // port mappings.
-  public abstract ports: IPromptPort[];
+  public abstract ports: types.IPromptPort[];
   // variables.
-  public abstract variables: IPromptVariable[];
+  public abstract variables: types.IPromptVariable[];
   // mount points
-  public abstract mountPoints: IPromptMount[];
+  public abstract mountPoints: types.IPromptMount[];
   // volumes.
-  public abstract volumes: IPromptVolume[];
+  public abstract volumes: types.IPromptVolume[];
 
   // compose builder reference.
   protected builder: ComposeBuilder;
 
   // compose service instance.
-  protected service: ComposeService;
+  protected service: DockerComposeService;
 
   // constructor.
   public constructor(builder: ComposeBuilder) {
     // assign builder instance.
     this.builder = builder;
     // start and assign compose service instance.
-    this.service = new ComposeService();
+    this.service = new DockerComposeService();
   }
 
 
   // ask input question.
-  public async ask(): Promise<ComposeService> {
+  public async ask(): Promise<DockerComposeService> {
     // log an empty line to separate question prompts.
     console.log();
 
@@ -135,10 +93,10 @@ export abstract class ServicePrompt {
     });
 
     // loop through mount points, adding on service.
-    each(this.mountPoints, (v: IPromptMount) => this.service.addMountPoint(v));
+    each(this.mountPoints, (v: types.IPromptMount) => this.service.addMountPoint(v));
 
     // loop through volumes, adding on service.
-    each(this.volumes, (v: IPromptVolume) => this.service.addVolume(v));
+    each(this.volumes, (v: types.IPromptVolume) => this.service.addVolume(v));
 
     // return build service.
     return this.service;
@@ -173,7 +131,7 @@ export abstract class ServicePrompt {
     return (new Form({
       name: `${this.slug}.variables`,
       message: `➜ Configure ${this.name} variables:`,
-      choices: map(this.variables, (v: IPromptVariable) => {
+      choices: map(this.variables, (v: types.IPromptVariable) => {
         return {
           name: v.name,
           message: v.description,
@@ -194,7 +152,7 @@ export abstract class ServicePrompt {
     return (new Form({
       name: `${this.slug}.ports`,
       message: `➜ Map ${this.name} ports on Host:`,
-      choices: map(this.ports, (v: IPromptPort) => {
+      choices: map(this.ports, (v: types.IPromptPort) => {
         return {
           name: v.port,
           message: `${v.name} (${v.port})`,

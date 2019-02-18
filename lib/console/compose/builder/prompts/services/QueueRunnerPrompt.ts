@@ -1,9 +1,8 @@
-// import classes and base prompt.
-import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from '../ServicePrompt';
+// imports.
+import { ServicePrompt } from 'lib/console/compose/builder/prompts';
+import * as types from 'lib/console/compose/builder/prompts/types';
 
-/**
- * Class QueueRunnerPrompt.
- */
+// Class QueueRunnerPrompt.
 export class QueueRunnerPrompt extends ServicePrompt {
   // service / question name.
   public name: string = 'Laravel Queue';
@@ -23,17 +22,17 @@ export class QueueRunnerPrompt extends ServicePrompt {
 
   // port mappings.
   // queue runner does not expose ports.
-  public ports: IPromptPort[] = [];
+  public ports: types.IPromptPort[] = [];
 
   // variables.
-  public variables: IPromptVariable[] = [
+  public variables: types.IPromptVariable[] = [
     { name: 'FRAMEWORK', description: 'Framework? (laravel|symfony|generic)', initial: 'laravel' },
     { name: 'XDEBUG_ENABLED', description: 'Enable xDebug?', initial: 'true' },
     { name: 'PHP_MEMORY_LIMIT', description: 'PHP Memory Limit', initial: '256M' },
   ];
 
   // list of mount points.
-  public mountPoints: IPromptMount[] = [
+  public mountPoints: types.IPromptMount[] = [
     { source: '.', target: '/var/www/app' },
     { source: 'dot-config', target: '/home/ambientum/.config' },
     { source: 'dot-cache', target: '/home/ambientum/.cache' },
@@ -42,7 +41,7 @@ export class QueueRunnerPrompt extends ServicePrompt {
   ];
 
   // list of mount points.
-  public volumes: IPromptVolume[] = [
+  public volumes: types.IPromptVolume[] = [
     { name: 'dot-config', driver: 'local' },
     { name: 'dot-cache', driver: 'local' },
     { name: 'dot-local', driver: 'local' },

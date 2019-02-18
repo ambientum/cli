@@ -1,14 +1,14 @@
-// import lodash helpers.
-import { set, map } from 'lodash';
-// import service resource classes.
-import * as res from './resources';
-// import volume classes.
-import { ComposeVolume, IComposeVolume } from './volume';
+// imports.
+import { find, set, map, pick, pickBy } from 'lodash';
+import { DockerComposeVolume } from 'lib/support/compose';
+import { IComposeVolume } from 'lib/support/compose/types';
+import * as res from 'lib/support/compose/resources';
+
 
 /**
- * Class ComposeService.
+ * Class DockerComposeService.
  */
-export class ComposeService {
+export class DockerComposeService {
   // service name.
   public name: string;
   // service image.
@@ -19,22 +19,16 @@ export class ComposeService {
 
   // service command.
   public command: res.ComposeCommand = null;
-
   // list of mount points.
   public mountPoints: res.ComposeMount[] = [];
-
   // list of port mappings.
   public portMappings: res.ComposePort[] = [];
-
   // list of links to another services.
   public links: res.ComposeLink[] = [];
-
   // list of variables.
   public variables: res.ComposeVariable[] = [];
-
   // list of volumes.
-  public volumes: ComposeVolume[] = [];
-
+  public volumes: DockerComposeVolume[] = [];
   // linkable or not.
   public linkable: boolean = false;
 
@@ -75,31 +69,30 @@ export class ComposeService {
   }
 
   // add service link.
-  public addLink(link: res.IComposeLink): ComposeService {
-    // push into links array.
-    this.links.push(new res.ComposeLink(link));
-    // fluent return.
-    return this;
+  public addLink(link: res.IComposeLink): void {
+    // find existing links
+    const alreadyLinked = find(this.links, (existing: res.ComposeLink) => existing.service === link.service);
+    // if not already linked...
+    if (!alreadyLinked) {
+      // ...push into links array.
+      this.links.push(new res.ComposeLink(link));
+    }
   }
 
   // add service variable.
-  public addVariable(variable: res.IComposeVariable): ComposeService {
+  public addVariable(variable: res.IComposeVariable): void {
     // push into variables array.
     this.variables.push(new res.ComposeVariable(variable));
-    // fluent return.
-    return this;
   }
 
   // add service volume.
-  public addVolume(volume: IComposeVolume): ComposeService {
+  public addVolume(volume: IComposeVolume): void {
     // push into volumes array.
-    this.volumes.push(new ComposeVolume(volume));
-    // fluent return.
-    return this;
+    this.volumes.push(new DockerComposeVolume(volume));
   }
 
   // set as linkable or not.
-  public setLinkable(linkable: boolean): ComposeService {
+  public setLinkable(linkable: boolean): DockerComposeService {
     // assign linkable status.
     this.linkable = linkable;
     // fluent return.
@@ -107,7 +100,7 @@ export class ComposeService {
   }
 
   // return the service compose object.
-  public serialize(linkableServices: ComposeService[]): object {
+  public serialize(): object {
     // start service object.
     const service = {
       image: this.image, // service image.
@@ -134,10 +127,8 @@ export class ComposeService {
     }
 
     // non linkable services should link to all linkable ones.
-    if ((this.linkable === false) && linkableServices.length > 0) {
-      set(service, 'links', map(linkableServices, (s: ComposeService) => {
-        return s.name;
-      }));
+    if (this.links.length > 0) {
+      set(service, 'links', map(this.links, (l: res.ComposeLink) => l.service));
     }
 
     // return docker-compose service object.

@@ -1,9 +1,7 @@
-// import base enquirer prompt.
+// imports.
 import { Input } from 'enquirer/lib/prompts';
 
-/**
- * Class BuilderInputPrompt.
- */
+// Class InputPrompt.
 export abstract class InputPrompt {
   // question name (key).
   protected abstract name: string;

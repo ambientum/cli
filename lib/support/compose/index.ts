@@ -1,4 +1,4 @@
-export { DockerCompose } from './compose';
-export { ComposeService } from './service';
-export { ComposeVolume, IComposeVolume } from './volume';
+export { DockerCompose } from 'lib/support/compose/DockerCompose';
+export { DockerComposeService } from 'lib/support/compose/DockerComposeService';
+export { DockerComposeVolume } from 'lib/support/compose/DockerComposeVolume';
 

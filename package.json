@@ -11,6 +11,7 @@
   "private": false,
   "scripts": {
     "clear": "rimraf ./dist && rimraf out/amb-*",
+    "lint": "tslint --fix lib/**/*.ts",
     "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
     "build": "npm run clear && npm run babel",
     "start": "nodemon",

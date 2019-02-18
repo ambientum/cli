@@ -1,11 +1,8 @@
-import {
-  IPromptMount,
-  IPromptPort,
-  IPromptVariable,
-  IPromptVolume,
-  ServicePrompt,
-} from '../ServicePrompt';
+// imports.
+import { ServicePrompt } from 'lib/console/compose/builder/prompts';
+import * as types from 'lib/console/compose/builder/prompts/types';
 
+// Class RedisPrompt.
 export class RedisPrompt extends ServicePrompt {
   // service / question name.
   public name: string = 'Redis';
@@ -23,20 +20,20 @@ export class RedisPrompt extends ServicePrompt {
   public tags: string[] = ['5-alpine', '4-alpine'];
 
   // port mappings.
-  public ports: IPromptPort[] = [
+  public ports: types.IPromptPort[] = [
     { name: 'default', port: '6379' },
   ];
 
   // variables.
-  public variables: IPromptVariable[] = [];
+  public variables: types.IPromptVariable[] = [];
 
   // list of mount points.
-  public mountPoints: IPromptMount[] = [
+  public mountPoints: types.IPromptMount[] = [
     { source: 'redis-data', target: '/data' },
   ];
 
   // list of mount points.
-  public volumes: IPromptVolume[] = [
+  public volumes: types.IPromptVolume[] = [
     { name: 'redis-data', driver: 'local' },
   ];
 }

@@ -1,11 +1,8 @@
-// import basename helper.
+// imports.
 import { basename } from 'path';
-// import base
-import { InputPrompt } from '../InputPrompt';
+import { InputPrompt } from 'lib/console/compose/builder/prompts';
 
-/**
- * Class ProjectNamePrompt.
- */
+// Class ProjectNamePrompt.
 export class ProjectNamePrompt extends InputPrompt {
   // prompt name.
   protected name: string = 'name';

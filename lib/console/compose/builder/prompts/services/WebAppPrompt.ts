@@ -1,9 +1,8 @@
-// import classes and base prompt.
-import { IPromptMount, IPromptPort, IPromptVariable, IPromptVolume, ServicePrompt } from '../ServicePrompt';
+// imports.
+import { ServicePrompt } from 'lib/console/compose/builder/prompts';
+import * as types from 'lib/console/compose/builder/prompts/types';
 
-/**
- * Class WebAppPrompt.
- */
+// Class WebAppPrompt.
 export class WebAppPrompt extends ServicePrompt {
   // service / question name.
   public name: string = 'Web Application';
@@ -21,20 +20,20 @@ export class WebAppPrompt extends ServicePrompt {
   public tags: string[] = ['7.3-nginx', '7.2-nginx'];
 
   // port mappings.
-  public ports: IPromptPort[] = [
+  public ports: types.IPromptPort[] = [
     { name: 'HTTP', port: '8080' },
     { name: 'HTTPS', port: '8083' },
   ];
 
   // variables.
-  public variables: IPromptVariable[] = [
+  public variables: types.IPromptVariable[] = [
     { name: 'FRAMEWORK', description: 'Framework? (laravel|symfony|generic)', initial: 'laravel' },
     { name: 'XDEBUG_ENABLED', description: 'Enable xDebug?', initial: 'true' },
     { name: 'PHP_MEMORY_LIMIT', description: 'PHP Memory Limit', initial: '256M' },
   ];
 
   // list of mount points.
-  public mountPoints: IPromptMount[] = [
+  public mountPoints: types.IPromptMount[] = [
     { source: '.', target: '/var/www/app' },
     { source: 'dot-config', target: '/home/ambientum/.config' },
     { source: 'dot-cache', target: '/home/ambientum/.cache' },
@@ -43,7 +42,7 @@ export class WebAppPrompt extends ServicePrompt {
   ];
 
   // list of mount points.
-  public volumes: IPromptVolume[] = [
+  public volumes: types.IPromptVolume[] = [
     { name: 'dot-config', driver: 'local' },
     { name: 'dot-cache', driver: 'local' },
     { name: 'dot-local', driver: 'local' },

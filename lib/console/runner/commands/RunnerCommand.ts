@@ -1,8 +1,8 @@
-// import base command.
-import { Select } from 'enquirer/lib/prompts';
-import { Command } from 'lib/support/console/command';
+// imports.
 import { map, mapKeys, mapValues } from 'lodash';
+import { Select } from 'enquirer/lib/prompts';
 import { run } from 'lib/support/docker';
+import { Command } from 'lib/support/console';
 import { DockerVolume } from 'lib/support/docker/volume';
 
 /**

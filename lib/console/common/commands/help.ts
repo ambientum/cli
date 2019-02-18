@@ -1,9 +1,7 @@
-// import chalk for output colors.
 import chalk from 'chalk';
-// import lodash helpers.
-import { each, reduce, map, max } from 'lodash';
-// import command classes
-import { Command, CommandHelp, UsageExample } from 'lib/support/console';
+import { each, map, max } from 'lodash';
+import { UsageExample } from 'lib/support/console/types';
+import { Command, CommandHelp } from 'lib/support/console';
 
 /**
  * Class HelpCommand.

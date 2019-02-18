@@ -1,7 +1,7 @@
-// import base command.
+// imports.
 import { Select } from 'enquirer/lib/prompts';
-import { UsageExample } from 'lib/support/console';
-import { RunnerCommand } from 'lib/console/runner/commands/RunnerCommand';
+import { RunnerCommand } from 'lib/console/runner/commands';
+import { UsageExample } from 'lib/support/console/types';
 
 /**
  * Class NodeJSRunnerCommand.

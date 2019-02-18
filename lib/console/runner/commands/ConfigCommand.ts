@@ -1,6 +1,7 @@
-// import base command.
+// imports.
 import { Select } from 'enquirer/lib/prompts';
-import { Command, UsageExample } from 'lib/support/console/command';
+import { Command } from 'lib/support/console';
+import { UsageExample } from 'lib/support/console/types';
 
 /**
  * Class ConfigCommand.
