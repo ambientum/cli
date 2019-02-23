@@ -21,7 +21,7 @@ export class MySQLPrompt extends ServicePrompt {
   // variables.
   public variables: types.IPromptVariable[] = [
     { name: 'MYSQL_ROOT_PASSWORD', description: 'Root Password', initial: 'project' },
-    { name: 'MYSQL_USERNAME', description: 'Username', initial: 'project' },
+    { name: 'MYSQL_USER', description: 'Username', initial: 'project' },
     { name: 'MYSQL_PASSWORD', description: 'Password', initial: 'project' },
     { name: 'MYSQL_DATABASE', description: 'Database Name', initial: 'project' },
   ];
