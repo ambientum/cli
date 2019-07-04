@@ -15,7 +15,9 @@
     "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
     "build": "npm run clear && npm run babel",
     "start": "nodemon",
-    "generate": "npm run build && pkg -t node8-macos,node8-linux,node8-win bin/amb --out-path out"
+    "generate": "npm run build && pkg -t node8-macos,node8-linux,node8-win bin/amb --out-path out",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "pkg": {
     "scripts": [
@@ -33,7 +35,8 @@
     "enquirer": "^2.3.0",
     "lodash": "^4.17.11",
     "meow": "^5.0.0",
-    "yaml": "^1.3.2"
+    "yaml": "^1.3.2",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -53,5 +56,6 @@
     "rimraf": "^2.6.3",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
-  }
+  },
+  "snyk": true
 }
