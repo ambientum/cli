@@ -31,7 +31,7 @@
     "configstore": "^4.0.0",
     "dockerode": "^2.5.8",
     "enquirer": "^2.3.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.16",
     "meow": "^5.0.0",
     "yaml": "^1.3.2"
   },
