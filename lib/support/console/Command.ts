@@ -29,13 +29,13 @@ export abstract class Command {
     this.app = ConsoleApplication.getInstance();
     // assign a config object for global config access inside commands.
     this.config = new GlobalConfig({
-      node: { image: 'ambientum/node', tag: '10' },
-      php: { image: 'ambientum/php', tag: '7.3' },
+      node: { image: 'ambientum/node', tag: 'lts' },
+      php: { image: 'ambientum/php', tag: 'latest' },
     });
   }
 
   // abstract run method.
-  public abstract async run(...args);
+  public abstract run(...args);
 
   // if command should be triggered.
   public shouldTrigger(candidate: string) {
