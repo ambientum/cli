@@ -59,8 +59,18 @@ export const run = (image, command, options = {}, attachOptions = {}) => {
 
   // create the container, passing run handler.
   return docker.createContainer(finalOptions, (err, container) => {
+    // handling errors
+    if (err) {
+      throw err;
+    }
+
     // attach TTY on container.
     container.attach(finalAttachOptions, (err, stream) => {
+      // handling errors
+      if (err) {
+        throw err;
+      }
+
       // connect stdout.
       connectStdout(stream);
       // connect stdin.
