@@ -1,6 +1,5 @@
 // imports.
 import { map, mapKeys, mapValues } from 'lodash';
-import { Select } from 'enquirer/lib/prompts';
 import { run } from 'lib/support/docker';
 import { Command } from 'lib/support/console';
 import { DockerVolume } from 'lib/support/docker/volume';
@@ -27,7 +26,7 @@ export abstract class RunnerCommand extends Command {
 
     // determine image name.
     const imageType = ((['-p', 'php'].indexOf(commandName)) !== -1) ? 'php' : 'node';
-    // get image config.
+    // get image config. 
     const imageConfig = this.config.get(imageType);
     // build image name from stored config.
     const imageName = `${imageConfig.image}:${imageConfig.tag}`;
@@ -37,7 +36,7 @@ export abstract class RunnerCommand extends Command {
     // build options object for running.
     const options = this.buildRunOptions();
 
-    // run php container.
+    // run container.
     return run(imageName, this.app.argsParser.commandArgs(), options);
   }
 
