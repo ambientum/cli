@@ -14,7 +14,7 @@ export class PostgresPrompt extends ServicePrompt {
   public enabledByDefault: boolean = false;
 
   // tags.
-  public tags: string[] = ['11.2', '10.7', '9.6', '9.5'];
+  public tags: string[] = ['13.1','12.5','11.10', '10.15', '9.6', '9.5'];
 
   // port mappings.
   public ports: types.IPromptPort[] = [

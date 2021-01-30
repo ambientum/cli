@@ -26,10 +26,10 @@ export class ConfigCommand extends Command {
   public triggers: string[] = [ 'config', '-c' ];
 
   // fire config command.
-  public run(action: string, key: string, value: string): void {
+  public async run(action: string, key: string, value: string): Promise<void> {
     // handle "amb config".
     if (action === null || action === undefined) {
-      console.log(this.interactiveConfiguration());
+      console.log(await this.interactiveConfiguration());
     }
 
     // handle "amb config path".
@@ -83,8 +83,8 @@ export class ConfigCommand extends Command {
     // Question for PHP version.
     const askPHPVersion = new Select({
       message: 'Global PHP version:',
-      initial: this.config.get('php.tag') || '7.2',
-      choices: [ '7.2', '7.3', 'latest' ],
+      initial: this.config.get('php.tag') || '7.1',
+      choices: [ '7.1', '7.2', '7.3', '7.4', 'latest' ],
     });
 
     // ask the question and set on config.
@@ -93,8 +93,8 @@ export class ConfigCommand extends Command {
     // Question for Node.JS version.
     const askNodeVersion = new Select({
       message: 'Global Node.JS version:',
-      initial: this.config.get('node.tag') || '11',
-      choices: [ '10', '11', 'lts', 'latest' ],
+      initial: this.config.get('node.tag') || '15',
+      choices: [ '10', '11', '12', '13', '15', 'lts', 'latest' ],
     });
 
     // ask the question and set on config.
