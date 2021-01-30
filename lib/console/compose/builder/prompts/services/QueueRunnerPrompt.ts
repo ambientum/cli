@@ -18,7 +18,7 @@ export class QueueRunnerPrompt extends ServicePrompt {
   public linkable: boolean = false;
 
   // tags.
-  public tags: string[] = ['7.3', '7.2'];
+  public tags: string[] = ['8.0','7.4','7.3','7.2', '7.1'];
 
   // variables.
   public variables: types.IPromptVariable[] = [
