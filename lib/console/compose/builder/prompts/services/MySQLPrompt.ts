@@ -12,7 +12,7 @@ export class MySQLPrompt extends ServicePrompt {
   public image: string = 'mysql';
 
   // tags.
-  public tags: string[] = ['5.7', '8.0'];
+  public tags: string[] = ['8.0', '5.7'];
 
   // port mappings.
   public ports: types.IPromptPort[] = [

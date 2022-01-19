@@ -15,7 +15,7 @@
     "babel": "babel lib --out-dir dist --extensions .ts,.tsx,.js",
     "build": "npm run clear && npm run babel",
     "start": "nodemon",
-    "generate": "npm run build && pkg -t node8-macos,node8-linux,node8-win bin/amb --out-path out"
+    "generate": "npm run build && pkg -t node14-macos,node14-linux,node14-win bin/amb --out-path out"
   },
   "pkg": {
     "scripts": [

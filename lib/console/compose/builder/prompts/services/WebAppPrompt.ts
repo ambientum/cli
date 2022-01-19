@@ -15,7 +15,7 @@ export class WebAppPrompt extends ServicePrompt {
   public linkable: boolean = false;
 
   // tags.
-  public tags: string[] = ['7.3-nginx', '7.2-nginx'];
+  public tags: string[] = ['8.0-nginx','7.4-nginx','7.3-nginx', '7.2-nginx', '7.1-nginx'];
 
   // port mappings.
   public ports: types.IPromptPort[] = [

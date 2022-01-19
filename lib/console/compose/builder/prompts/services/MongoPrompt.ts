@@ -15,7 +15,7 @@ export class MongoPrompt extends ServicePrompt {
   public enabledByDefault: boolean = false;
 
   // tags.
-  public tags: string[] = ['4.1', '4.0', '3.6', '3.5'];
+  public tags: string[] = ['4.4','4.2','4.1', '4.0', '3.6', '3.5'];
 
   // port mappings.
   public ports: types.IPromptPort[] = [

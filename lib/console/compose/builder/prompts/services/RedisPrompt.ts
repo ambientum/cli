@@ -12,7 +12,7 @@ export class RedisPrompt extends ServicePrompt {
   public image: string = 'redis';
 
   // tags.
-  public tags: string[] = ['5-alpine', '4-alpine'];
+  public tags: string[] = ['6-alpine','5-alpine', '4-alpine'];
 
   // port mappings.
   public ports: types.IPromptPort[] = [

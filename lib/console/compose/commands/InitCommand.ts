@@ -30,9 +30,6 @@ export class InitCommand extends Command {
   public async run() {
     // create compose builder instance.
     this.builder = new ComposeBuilder();
-    // console.log(process.cwd() + "/docker-compose.yml");
-    // const file = readFileSync(process.cwd() + "/docker-compose.yml", { encoding: "utf8" });
-    // console.log(YAML.parse(file));
     // start builder.
     await this.builder.start();
   }
