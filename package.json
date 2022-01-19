@@ -48,7 +48,7 @@
     "@types/node": "^11.9.0",
     "@types/yaml": "^1.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
-    "nodemon": "^1.18.10",
+    "nodemon": "^2.0.15",
     "pkg": "^4.3.7",
     "rimraf": "^2.6.3",
     "tslint": "^5.12.1",
