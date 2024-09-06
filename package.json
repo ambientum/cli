@@ -28,11 +28,11 @@
   "dependencies": {
     "@babel/runtime": "^7.3.1",
     "chalk": "^2.4.2",
-    "configstore": "^5.0.0",
-    "dockerode": "^2.5.8",
+    "configstore": "^6.0.0",
+    "dockerode": "^3.2.0",
     "enquirer": "^2.3.0",
     "lodash": "^4.17.11",
-    "meow": "^6.0.0",
+    "meow": "^12.1.0",
     "yaml": "^1.3.2"
   },
   "devDependencies": {
